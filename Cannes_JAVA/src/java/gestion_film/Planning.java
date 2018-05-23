@@ -4,11 +4,13 @@
  * and open the template in the editor.
  */
 package gestion_film;
+import java.text.*;
+import java.util.*;
 
 /**
  *
  * @author Toussaint
  */
-public class Salle {
+public class Planning {
     
 }
