@@ -25,12 +25,14 @@ public class Jury {
         this.membres = membres;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getter">
     public int getId() {
         return id;
     }
-
+    
     public ArrayList<Personne> getMembres() {
         return membres;
     }
+//</editor-fold>
     
 }

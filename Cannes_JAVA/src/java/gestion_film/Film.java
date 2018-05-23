@@ -24,16 +24,18 @@ public class Film {
         this.duree = duree;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getter">
     public String getNom() {
         return nom;
     }
-
+    
     public String getType() {
         return type;
     }
-
+    
     public Duration getDuree() {
         return duree;
     }
-
+    //</editor-fold>
+    
 }

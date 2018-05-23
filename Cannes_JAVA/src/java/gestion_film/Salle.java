@@ -23,13 +23,15 @@ public class Salle {
         this.horaires = horaires;
     }
 
+    //<editor-fold defaultstate="collapsed" desc="Getter">
     public String getNom() {
         return nom;
     }
-
+    
     public ArrayList<SimpleDateFormat> getHoraires() {
         return horaires;
     }
+//</editor-fold>
     
     
 }
