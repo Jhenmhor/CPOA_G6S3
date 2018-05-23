@@ -14,7 +14,26 @@ import java.time.*;
  */
 public class Film {
     
-    private Duration duree;
-    
-    
+    private final String nom;
+    private final String type;
+    private final Duration duree;
+
+    public Film(String nom, String type, Duration duree) {
+        this.nom = nom;
+        this.type = type;
+        this.duree = duree;
+    }
+
+    public String getNom() {
+        return nom;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public Duration getDuree() {
+        return duree;
+    }
+
 }

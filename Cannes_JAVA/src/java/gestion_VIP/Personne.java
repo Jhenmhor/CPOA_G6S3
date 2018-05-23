@@ -3,16 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestion_film;
-import java.text.*;
-import java.util.*;
+package gestion_VIP;
 
 /**
  *
  * @author Toussaint
  */
-public class Planning {
-    
-    
+public class Personne {
     
 }
