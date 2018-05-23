@@ -16,6 +16,7 @@ public class Evenement {
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private final int id;
     private String info;
+    private Salle lieu;
     private DateFormat dateDebut;
     private DateFormat dateFin;
 
@@ -23,9 +24,10 @@ public class Evenement {
         this.id = id;
     }
 
-    public Evenement(int id, String info, DateFormat dateDebut, DateFormat dateFin) {
+    public Evenement(int id, String info,Salle lieu, DateFormat dateDebut, DateFormat dateFin) {
         this.id = id;
         this.info = info;
+        this.lieu = lieu;
         this.dateDebut = dateDebut;
         this.dateFin = dateFin;
     }
@@ -37,6 +39,14 @@ public class Evenement {
     
     public void setInfo(String info) {
         this.info = info;
+    }
+    
+    public Salle getLieu() {
+        return lieu;
+    }
+    
+    public void setInfo(Salle lieu) {
+        this.lieu = lieu;
     }
     
     public DateFormat getDateDebut() {
