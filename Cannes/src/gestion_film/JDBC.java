@@ -34,8 +34,9 @@ public class JDBC {
 
     }
 
-    public static void selectFilmFromDB() throws SQLException {
-
+    public static ArrayList selectFilmFromDB() throws SQLException {
+        
+        ArrayList<Film> listFilm = new ArrayList<>();
         Connection dbConnection = null;
         Statement statement = null;
 
@@ -50,8 +51,6 @@ public class JDBC {
             // execute select SQL stetement
             ResultSet rs = statement.executeQuery(selectTableSQL);
             
-            ArrayList<Film> listFilm = new ArrayList<>();
-            
             while (rs.next()) {
 
                 int filmid = Integer.parseInt(rs.getString("ID"));
@@ -62,25 +61,35 @@ public class JDBC {
 
                 String[] parts = duree.split(":");
                 Duration duree2 = Duration.ZERO;
-                if (parts.length == 3) {
-                    int hours = Integer.parseInt(parts[0]);
-                    int minutes = Integer.parseInt(parts[1]);
-                    int seconds = Integer.parseInt(parts[2]);
-                    duree2 = duree2.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
-                } else if (parts.length == 2) {
-                    int hours = Integer.parseInt(parts[0]);
-                    int minutes = Integer.parseInt(parts[1]);
-                    duree2 = duree2.plusHours(hours).plusMinutes(minutes);
-                } else {
-                    System.out.println("ERROR - Unexpected input.");
+                switch (parts.length) {
+                    case 3:
+                        {
+                            int hours = Integer.parseInt(parts[0]);
+                            int minutes = Integer.parseInt(parts[1]);
+                            int seconds = Integer.parseInt(parts[2]);
+                            duree2 = duree2.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
+                            break;
+                        }
+                    case 2:
+                        {
+                            int hours = Integer.parseInt(parts[0]);
+                            int minutes = Integer.parseInt(parts[1]);
+                            duree2 = duree2.plusHours(hours).plusMinutes(minutes);
+                            break;
+                        }
+                    default:
+                        System.out.println("ERROR - Unexpected input.");
+                        break;
                 }
 
                 Film film = new Film(filmid, filmname, realisateur, type, duree2);
-
+                
+                listFilm.add(film);
+                
                 System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
 
             }
-
+            
         } catch (SQLException e) {
 
             System.out.println(e.getMessage());
@@ -96,7 +105,9 @@ public class JDBC {
             }
 
         }
-
+        
+        return listFilm;
+    
     }
 
     private static Connection getDBConnection() {
