@@ -5,8 +5,6 @@
  */
 package gestion_film;
 
-import java.sql.*;
-
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -40,7 +38,7 @@ public class JDBC {
 		Connection dbConnection = null;
 		Statement statement = null;
 
-		String selectTableSQL = "SELECT USER_ID, USERNAME from DBUSER";
+		String selectTableSQL = "SELECT * from FILM";
 
 		try {
 			dbConnection = getDBConnection();
@@ -53,11 +51,11 @@ public class JDBC {
 
 			while (rs.next()) {
 
-				String userid = rs.getString("USER_ID");
-				String username = rs.getString("USERNAME");
+				String filmid = rs.getString("ID");
+				String filmname = rs.getString("NOM");
 
-				System.out.println("userid : " + userid);
-				System.out.println("username : " + username);
+				System.out.println("userid : " + filmid);
+				System.out.println("username : " + filmname);
 
 			}
 
