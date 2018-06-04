@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gestion_film;
+
 import java.text.*;
 import java.util.*;
 
@@ -12,7 +13,7 @@ import java.util.*;
  * @author Toussaint
  */
 public class Evenement {
-    
+
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private final int id;
     private String info;
@@ -24,7 +25,7 @@ public class Evenement {
         this.id = id;
     }
 
-    public Evenement(int id, String info,Salle lieu, DateFormat dateDebut, DateFormat dateFin) {
+    public Evenement(int id, String info, Salle lieu, DateFormat dateDebut, DateFormat dateFin) {
         this.id = id;
         this.info = info;
         this.lieu = lieu;
@@ -36,35 +37,34 @@ public class Evenement {
     public String getInfo() {
         return info;
     }
-    
+
     public void setInfo(String info) {
         this.info = info;
     }
-    
+
     public Salle getLieu() {
         return lieu;
     }
-    
+
     public void setInfo(Salle lieu) {
         this.lieu = lieu;
     }
-    
+
     public DateFormat getDateDebut() {
         return dateDebut;
     }
-    
+
     public void setDateDebut(DateFormat dateDebut) {
         this.dateDebut = dateDebut;
     }
-    
+
     public DateFormat getDateFin() {
         return dateFin;
     }
-    
+
     public void setDateFin(DateFormat dateFin) {
         this.dateFin = dateFin;
     }
     //</editor-fold>
-    
-      
+
 }

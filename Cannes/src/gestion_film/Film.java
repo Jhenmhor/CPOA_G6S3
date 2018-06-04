@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gestion_film;
+
 import java.text.*;
 import java.util.*;
 import java.time.*;
@@ -13,15 +14,15 @@ import java.time.*;
  * @author Toussaint
  */
 public class Film {
-    
+
     private final String nom;
-    private final String auteur;
+    private final String realisateur;
     private final String type;
     private final Duration duree;
 
-    public Film(String nom, String auteur, String type, Duration duree) {
+    public Film(String nom, String realisateur, String type, Duration duree) {
         this.nom = nom;
-        this.auteur = auteur;
+        this.realisateur = realisateur;
         this.type = type;
         this.duree = duree;
     }
@@ -30,14 +31,14 @@ public class Film {
     public String getNom() {
         return nom;
     }
-    
+
     public String getType() {
         return type;
     }
-    
+
     public Duration getDuree() {
         return duree;
     }
     //</editor-fold>
-    
+
 }

@@ -10,7 +10,7 @@ package gestion_VIP;
  * @author Toussaint
  */
 public class Personne {
-    
+
     private final int id;
     private String nom;
     private String prenom;
@@ -24,7 +24,5 @@ public class Personne {
         this.nom = nom;
         this.prenom = prenom;
     }
-    
-    
-    
+
 }

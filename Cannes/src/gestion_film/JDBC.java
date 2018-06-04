@@ -14,100 +14,99 @@ import java.util.ArrayList;
 
 public class JDBC {
 
-	private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
-	private static final String DB_CONNECTION = "jdbc:oracle:thin:@iutdoua-oracle.univ-lyon1.fr:1521:orcl";
-	private static final String DB_USER = "p1623009";
-	private static final String DB_PASSWORD = "288070";
+    private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
+    private static final String DB_CONNECTION = "jdbc:oracle:thin:@iutdoua-oracle.univ-lyon1.fr:1521:orcl";
+    private static final String DB_USER = "p1623009";
+    private static final String DB_PASSWORD = "288070";
 
-	public static void main(String[] argv) {
+    public static void main(String[] argv) {
 
-		try {
+        try {
 
-			selectFilmFromDB();
+            selectFilmFromDB();
 
-		} catch (SQLException e) {
+        } catch (SQLException e) {
 
-			System.out.println(e.getMessage());
+            System.out.println(e.getMessage());
 
-		}
+        }
 
-	}
+    }
 
-	public static void selectFilmFromDB() throws SQLException {
+    public static void selectFilmFromDB() throws SQLException {
 
-		Connection dbConnection = null;
-		Statement statement = null;
+        Connection dbConnection = null;
+        Statement statement = null;
 
-		String selectTableSQL = "SELECT * from FILM";
+        String selectTableSQL = "SELECT * from FILM";
 
-		try {
-			dbConnection = getDBConnection();
-			statement = dbConnection.createStatement();
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
 
-			System.out.println(selectTableSQL);
+            System.out.println(selectTableSQL);
 
-			// execute select SQL stetement
-			ResultSet rs = statement.executeQuery(selectTableSQL);
+            // execute select SQL stetement
+            ResultSet rs = statement.executeQuery(selectTableSQL);
 
-			while (rs.next()) {
+            while (rs.next()) {
 
-				int filmid =  Integer.parseInt(rs.getString("ID"));
-				String filmname = rs.getString("NOM");
-                                String type = rs.getString("TYPE");
-                                String duree = rs.getString("DUREE");
-                                String realisateur = rs.getString("REALISATEUR");
-                                
-                                
-				System.out.println("FilmID : " + filmid + " " + filmname);
+                int filmid = Integer.parseInt(rs.getString("ID"));
+                String filmname = rs.getString("NOM");
+                String type = rs.getString("TYPE");
+                String duree = rs.getString("DUREE");
+                String realisateur = rs.getString("REALISATEUR");
 
-			}
+                System.out.println("FilmID : " + filmid + " " + filmname);
 
-		} catch (SQLException e) {
+            }
 
-			System.out.println(e.getMessage());
+        } catch (SQLException e) {
 
-		} finally {
+            System.out.println(e.getMessage());
 
-			if (statement != null) {
-				statement.close();
-			}
+        } finally {
 
-			if (dbConnection != null) {
-				dbConnection.close();
-			}
+            if (statement != null) {
+                statement.close();
+            }
 
-		}
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
 
-	}
+        }
 
-	private static Connection getDBConnection() {
+    }
 
-		Connection dbConnection = null;
+    private static Connection getDBConnection() {
 
-		try {
+        Connection dbConnection = null;
 
-			Class.forName(DB_DRIVER);
+        try {
 
-		} catch (ClassNotFoundException e) {
+            Class.forName(DB_DRIVER);
 
-			System.out.println(e.getMessage());
+        } catch (ClassNotFoundException e) {
 
-		}
+            System.out.println(e.getMessage());
 
-		try {
+        }
 
-			dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,
-					DB_PASSWORD);
-			return dbConnection;
+        try {
 
-		} catch (SQLException e) {
+            dbConnection = DriverManager.getConnection(DB_CONNECTION, DB_USER,
+                    DB_PASSWORD);
+            return dbConnection;
 
-			System.out.println(e.getMessage());
+        } catch (SQLException e) {
 
-		}
+            System.out.println(e.getMessage());
 
-		return dbConnection;
+        }
 
-	}
+        return dbConnection;
+
+    }
 
 }

@@ -16,7 +16,7 @@ import java.util.ArrayList;
  * @author Toussaint
  */
 public class Jury {
-    
+
     private final int id;
     private ArrayList<Personne> membres;
 
@@ -29,10 +29,10 @@ public class Jury {
     public int getId() {
         return id;
     }
-    
+
     public ArrayList<Personne> getMembres() {
         return membres;
     }
 //</editor-fold>
-    
+
 }

@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */
 package gestion_film;
+
 import java.text.*;
 import java.util.*;
 import java.util.ArrayList;
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * @author Toussaint
  */
 public class Planning {
-    
+
     private final int id;
     private ArrayList<Evenement> listEvenement;
 
@@ -25,13 +26,10 @@ public class Planning {
     public int getId() {
         return id;
     }
-    
+
     public ArrayList<Evenement> getListEvenement() {
         return listEvenement;
     }
-    
+
 //</editor-fold>
-    
-    
-    
 }

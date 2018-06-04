@@ -17,8 +17,7 @@ public class GestionFilm {
     private ArrayList<Film> listFilm;
     private ArrayList<Jury> listJury;
     private ArrayList<Salle> listSalle;
-    */
-
+     */
     /**
      * @param args the command line arguments
      */
@@ -30,5 +29,5 @@ public class GestionFilm {
         
         
     }
-    */
+     */
 }
