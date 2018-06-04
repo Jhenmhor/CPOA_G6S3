@@ -5,7 +5,10 @@
  */
 package gestion_film;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -13,21 +16,20 @@ import java.util.ArrayList;
  */
 public class GestionFilm {
 
-    /*
-    private ArrayList<Film> listFilm;
-    private ArrayList<Jury> listJury;
-    private ArrayList<Salle> listSalle;
-     */
     /**
      * @param args the command line arguments
      */
-    /*
     public static void main(String[] args) {
-        // TODO code application logic here
         
+        
+        try {
+            ArrayList<Film> listFilm = JDBC.selectFilmFromDB();
+        } catch (SQLException ex) {
+            Logger.getLogger(GestionFilm.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
         
     }
-     */
+     
 }
