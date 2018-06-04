@@ -11,6 +11,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.time.*;
 
 public class JDBC {
 
@@ -48,7 +49,9 @@ public class JDBC {
 
             // execute select SQL stetement
             ResultSet rs = statement.executeQuery(selectTableSQL);
-
+            
+            ArrayList<Film> listFilm = new ArrayList<>();
+            
             while (rs.next()) {
 
                 int filmid = Integer.parseInt(rs.getString("ID"));
@@ -57,7 +60,24 @@ public class JDBC {
                 String duree = rs.getString("DUREE");
                 String realisateur = rs.getString("REALISATEUR");
 
-                System.out.println("FilmID : " + filmid + " " + filmname);
+                String[] parts = duree.split(":");
+                Duration duree2 = Duration.ZERO;
+                if (parts.length == 3) {
+                    int hours = Integer.parseInt(parts[0]);
+                    int minutes = Integer.parseInt(parts[1]);
+                    int seconds = Integer.parseInt(parts[2]);
+                    duree2 = duree2.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
+                } else if (parts.length == 2) {
+                    int hours = Integer.parseInt(parts[0]);
+                    int minutes = Integer.parseInt(parts[1]);
+                    duree2 = duree2.plusHours(hours).plusMinutes(minutes);
+                } else {
+                    System.out.println("ERROR - Unexpected input.");
+                }
+
+                Film film = new Film(filmid, filmname, realisateur, type, duree2);
+
+                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
 
             }
 

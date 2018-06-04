@@ -15,19 +15,21 @@ import java.time.*;
  */
 public class Film {
 
-    private final String nom;
-    private final String realisateur;
-    private final String type;
-    private final Duration duree;
+    private int ID;
+    private String nom;
+    private String realisateur;
+    private String type;
+    private Duration duree;
 
-    public Film(String nom, String realisateur, String type, Duration duree) {
+    public Film(int ID, String nom, String realisateur, String type, Duration duree) {
+        this.ID = ID;
         this.nom = nom;
         this.realisateur = realisateur;
         this.type = type;
         this.duree = duree;
     }
 
-    //<editor-fold defaultstate="collapsed" desc="Getter">
+    //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
     public String getNom() {
         return nom;
     }
@@ -39,6 +41,34 @@ public class Film {
     public Duration getDuree() {
         return duree;
     }
-    //</editor-fold>
 
+    public String getRealisateur() {
+        return realisateur;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setRealisateur(String realisateur) {
+        this.realisateur = realisateur;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public void setDuree(Duration duree) {
+        this.duree = duree;
+    }
+
+    //</editor-fold>
 }
