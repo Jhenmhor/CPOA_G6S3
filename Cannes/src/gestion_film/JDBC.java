@@ -20,20 +20,22 @@ public class JDBC {
     private static final String DB_USER = "p1623009";
     private static final String DB_PASSWORD = "288070";
 
-    public static void main(String[] argv) {
-
-        try {
-
-            selectFilmFromDB();
-
-        } catch (SQLException e) {
-
-            System.out.println(e.getMessage());
-
-        }
-
-    }
-
+//    
+//    public static void main(String[] argv) {
+//
+//        try {
+//
+//            selectFilmFromDB();
+//
+//        } catch (SQLException e) {
+//
+//            System.out.println(e.getMessage());
+//
+//        }
+//
+//    }
+    
+    
     public static ArrayList selectFilmFromDB() throws SQLException {
         
         ArrayList<Film> listFilm = new ArrayList<>();
@@ -48,7 +50,7 @@ public class JDBC {
 
             System.out.println(selectTableSQL);
 
-            // execute select SQL stetement
+//             execute select SQL stetement
             ResultSet rs = statement.executeQuery(selectTableSQL);
             
             while (rs.next()) {
@@ -86,7 +88,7 @@ public class JDBC {
                 
                 listFilm.add(film);
                 
-                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
+//                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
 
             }
             
