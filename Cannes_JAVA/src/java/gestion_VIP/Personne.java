@@ -14,17 +14,15 @@ public class Personne {
     private final int id;
     private String nom;
     private String prenom;
-    private int idPhoto;
 
     public Personne(int id) {
         this.id = id;
     }
 
-    public Personne(int id, String nom, String prenom, int idPhoto) {
+    public Personne(int id, String nom, String prenom) {
         this.id = id;
         this.nom = nom;
         this.prenom = prenom;
-        this.idPhoto = idPhoto;
     }
     
     

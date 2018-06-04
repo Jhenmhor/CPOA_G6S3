@@ -15,11 +15,13 @@ import java.time.*;
 public class Film {
     
     private final String nom;
+    private final String auteur;
     private final String type;
     private final Duration duree;
 
-    public Film(String nom, String type, Duration duree) {
+    public Film(String nom, String auteur, String type, Duration duree) {
         this.nom = nom;
+        this.auteur = auteur;
         this.type = type;
         this.duree = duree;
     }
