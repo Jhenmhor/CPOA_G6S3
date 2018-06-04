@@ -33,7 +33,7 @@ public class JDBC {
 
 	}
 
-	private static void selectFilmFromDB() throws SQLException {
+	public static void selectFilmFromDB() throws SQLException {
 
 		Connection dbConnection = null;
 		Statement statement = null;
@@ -51,11 +51,14 @@ public class JDBC {
 
 			while (rs.next()) {
 
-				String filmid = rs.getString("ID");
+				int filmid =  Integer.parseInt(rs.getString("ID"));
 				String filmname = rs.getString("NOM");
-
-				System.out.println("userid : " + filmid);
-				System.out.println("username : " + filmname);
+                                String type = rs.getString("TYPE");
+                                String duree = rs.getString("DUREE");
+                                String realisateur = rs.getString("REALISATEUR");
+                                
+                                
+				System.out.println("FilmID : " + filmid + " " + filmname);
 
 			}
 
