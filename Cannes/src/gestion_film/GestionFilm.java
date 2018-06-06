@@ -19,17 +19,17 @@ public class GestionFilm {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        
-        
-        try {
-            ArrayList<Film> listFilm = JDBC.selectFilmFromDB();
-        } catch (SQLException ex) {
-            Logger.getLogger(GestionFilm.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        
-        
-        
-    }
+//    public static void main(String[] args) {
+//        
+//        
+//        try {
+//            ArrayList<Film> listFilm = JDBC.selectFilmFromDB();
+//        } catch (SQLException ex) {
+//            Logger.getLogger(GestionFilm.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        
+//        
+//        
+//    }
      
 }

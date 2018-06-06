@@ -20,7 +20,7 @@ public class JDBC {
     private static final String DB_USER = "p1623009";
     private static final String DB_PASSWORD = "288070";
 
-//    
+    
 //    public static void main(String[] argv) {
 //
 //        try {
@@ -34,8 +34,8 @@ public class JDBC {
 //        }
 //
 //    }
-    
-    
+//    
+//    
     public static ArrayList selectFilmFromDB() throws SQLException {
         
         ArrayList<Film> listFilm = new ArrayList<>();
