@@ -3,10 +3,10 @@ package windows;
 //<editor-fold defaultstate="collapsed" desc="#import mindfusion">
 import com.mindfusion.common.DateTime;
 import com.mindfusion.common.Duration;
-//import com.mindfusion.common.MouseButtons;
-//import com.mindfusion.common.ChangeListener;
-//import com.mindfusion.drawing.Brushes;
-//import com.mindfusion.drawing.Colors;
+import com.mindfusion.common.MouseButtons;
+import com.mindfusion.common.ChangeListener;
+import com.mindfusion.drawing.Brushes;
+import com.mindfusion.drawing.Colors;
 import com.mindfusion.drawing.awt.AwtImage;
 import com.mindfusion.scheduling.*;
 import com.mindfusion.drawing.Color;
@@ -19,19 +19,19 @@ import com.mindfusion.scheduling.model.ItemEvent;
 import javax.imageio.ImageIO;
 import javax.swing.*;
 import java.awt.*;
-//import java.awt.event.*;
+import java.awt.event.*;
 import java.awt.event.ItemListener;
 import java.io.BufferedInputStream;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-//import java.util.List;
+import java.util.List;
 import static javax.swing.JFrame.EXIT_ON_CLOSE;
 //</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="#import JDatePicker">
-//import java.util.Locale;
+import java.util.Locale;
 import javafx.geometry.HPos;
 import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
@@ -41,7 +41,7 @@ import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 //</editor-fold>
 
-//import gestion_film.*;
+import gestion_film.*;
 
 /**
  * Original creation by Golemija on 12/9/2015. modification by Toussaint on
@@ -157,14 +157,14 @@ public class PlanningWindow extends JFrame {
         calendar.getTimetableSettings().getCellStyle().setHeaderTextShadowOffset(0);
         calendar.getTimetableSettings().getCellStyle().setHeaderTextShadowStyle(ShadowStyle.None);
         calendar.getTimetableSettings().getDates().clear();
-        
+
         DateTime startingDate = DateTime.today();
-        
-        DatePicker datepicker = new DatePicker();
-        String mes = "Choose Starting Date :\n";
-        Object[] params = {mes,datepicker};
-        
-        /*startingdate = */ JOptionPane.showConfirmDialog(container,params,"Start date", JOptionPane.PLAIN_MESSAGE);
+
+//        DatePicker datepicker = new DatePicker();
+//        String mes = "Choose Starting Date :\n";
+//        Object[] params = {mes, datepicker};
+//
+//        /*startingdate = */ JOptionPane.showConfirmDialog(container, params, "Start date", JOptionPane.PLAIN_MESSAGE);
         for (int i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
         }
