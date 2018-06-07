@@ -57,11 +57,14 @@ public class PlanningWindow extends JFrame {
     private JCheckBox ucrBox;
     private Choice films;
     private AwtCalendar calendar;
-    ArrayList<Contact> filmList;
+    private ArrayList<Contact> CfilmList;
+    private ArrayList<Film> filmList;
 
     public PlanningWindow() {
-
-        filmList = new ArrayList<Contact>();
+        try {
+            this.filmList = JDBC.selectFilmFromDB();
+        } catch (Exception exp) {
+        }
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("MindFusion Java Scheduler: Course Timetable");
@@ -206,7 +209,7 @@ public class PlanningWindow extends JFrame {
 
         });
 
-        initializeContacts();
+        initializeFilm();
 
         container.add(calendar);
     }
@@ -226,7 +229,7 @@ public class PlanningWindow extends JFrame {
 
         if (source == lmBox) {
 
-            for (Contact c : filmList) {
+            for (Contact c : CfilmList) {
                 if (c.getId().startsWith("guitar")) {
 
                     if (addItems) {
@@ -239,7 +242,7 @@ public class PlanningWindow extends JFrame {
                 }
             }
         } else if (source == ucrBox) {
-            for (Contact c : filmList) {
+            for (Contact c : CfilmList) {
                 if (c.getId().startsWith("piano")) {
 
                     if (addItems) {
@@ -252,7 +255,7 @@ public class PlanningWindow extends JFrame {
                 }
             }
         } else if (source == hcBox) {
-            for (Contact c : filmList) {
+            for (Contact c : CfilmList) {
                 if (c.getId().startsWith("german")) {
 
                     if (addItems) {
@@ -266,7 +269,7 @@ public class PlanningWindow extends JFrame {
                 }
             }
         } else if (source == cmBox) {
-            for (Contact c : filmList) {
+            for (Contact c : CfilmList) {
                 if (c.getId().startsWith("french")) {
 
                     if (addItems) {
@@ -282,77 +285,18 @@ public class PlanningWindow extends JFrame {
         }
     }
 
-    private void initializeContacts() {
+    private void initializeFilm() {
 
-        Contact contact = new Contact();
-        contact.setId("german_MW");
-        contact.setName("Michael Walmann");
-        films.add(contact.getName());
-        calendar.getContacts().add(contact);
-        filmList.add(contact);
+        for (Film film : this.filmList) {
+            Contact contact = new Contact();
+            contact.setId(film.getType() + film.getID());
+            contact.setName(film.getNom());
+            films.add(contact.getName());
+            calendar.getContacts().add(contact);
+            CfilmList.add(contact);
 
-        contact = new Contact();
-        contact.setId("german_LB");
-        contact.setName("Brigitte Koepf");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
+        }
 
-        contact = new Contact();
-        contact.setId("piano_DR");
-        contact.setName("David Rohnson");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("piano_EE");
-        contact.setName("Elisabeth Evans");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("guitar_RS");
-        contact.setName("Ricardo Smith");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("guitar_RW");
-        contact.setName("Robert Wilson");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("french_FT");
-        contact.setName("Francois Toreau");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("french_CR");
-        contact.setName("Chantale Saron");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("piano_PD");
-        contact.setName("Peter Drysdale");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
-
-        contact = new Contact();
-        contact.setId("guitar_ER");
-        contact.setName("Emma Rodriguez");
-        calendar.getContacts().add(contact);
-        films.add(contact.getName());
-        filmList.add(contact);
     }
 
     protected void onCalendarDraw(DrawEvent e) {
