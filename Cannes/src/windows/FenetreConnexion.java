@@ -18,15 +18,18 @@ import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
  *
  * @author p1623082
  */
-public class FenetreConnexion extends JFrame {
+public class FenetreConnexion extends JFrame /*implements ItemListener*/{
 
     JLabel titre, logo, textFooter, labelmdp,labelid;
     JTextField mdp, id;
-    JButton bconnexion, bnewcompte;
+    JButton bconnexion /*, bnewcompte*/;
     JPanel panel,panellogo, paneltire, panelsaisi, panelbouton, panelfooter;
+    Object c;
     public FenetreConnexion () {
         bconnexion = new JButton("Se connecter");
-        bnewcompte = new JButton("creer un compte");
+        //bnewcompte = new JButton("creer un compte");
+        //bconnexion.setBackground(Color.GREEN);
+        c= bconnexion.getColorModel();
         mdp = new JTextField("", 10);
         id = new JTextField("", 10);
         logo = new JLabel(new ImageIcon("src/windows/img2.png"));
@@ -63,7 +66,7 @@ public class FenetreConnexion extends JFrame {
         panelsaisi.add(id);
         panelsaisi.add(labelmdp);
         panelsaisi.add(mdp);
-        panelbouton.add(bnewcompte);
+       // panelbouton.add(bnewcompte);
         panelbouton.add(bconnexion);
         panelfooter.add(textFooter);
         //on ajoute les panels dans le panel principal
@@ -72,7 +75,26 @@ public class FenetreConnexion extends JFrame {
         panel.add(panelsaisi);
         panel.add(panelbouton);
         panel.add(panelfooter);
+        // GESTION  DES EVENEMENTS
+        //on relie les elements concernés au classes interne
+        bconnexion.addMouseListener(new BoutonModifer());
                      
+    }
+    //classe interne qui change la couleur du bouton connecion lorsk la souris passe dessus
+    class BoutonModifer extends MouseAdapter {
+
+        public void mouseEntered(MouseEvent e) {
+            bconnexion.setSize(120, 40);
+           bconnexion.setForeground(Color.green);
+            //bconnexion.setBackground(Color.blue);
+        }
+
+        public void mouseExited(MouseEvent e) {
+            bconnexion.setText("Se connecter");
+           bconnexion.setForeground(Color.black);
+         //  bconnexion.setBackground(Color.getColor(c));
+        }
+        
     }
     public static void main(String[] args) {
         FenetreConnexion connexion = new FenetreConnexion();
