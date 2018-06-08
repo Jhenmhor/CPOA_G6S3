@@ -67,7 +67,7 @@ public class PlanningWindow extends JFrame {
         }
 
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("MindFusion Java Scheduler: Course Timetable");
+        setTitle("MindFusion Java Scheduler : Film Timetable");
 
         setMinimumSize(new Dimension(800, 600));
 
@@ -138,17 +138,6 @@ public class PlanningWindow extends JFrame {
         calendar.setCustomDraw(CustomDrawElements.TimetableItem);
         calendar.setGroupType(GroupType.FilterByContacts);
 
-//        calendar.getSelection().getSelectedElementsStyle().setBorderBottomColor(com.mindfusion.drawing.Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderBottomWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderLeftColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderLeftWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderRightColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderRightWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderTopColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderTopWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setFillColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBrush(Brushes.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setHeaderBorderBottomColor(new Color(0, 0, 0, 0)); 
         calendar.getTimetableSettings().getCellStyle().setBorderBottomColor(new Color(169, 169, 169));
         calendar.getTimetableSettings().getCellStyle().setBorderBottomWidth(1);
         calendar.getTimetableSettings().getCellStyle().setBorderLeftColor(new Color(169, 169, 169));
@@ -167,7 +156,7 @@ public class PlanningWindow extends JFrame {
 //        String mes = "Choose Starting Date :\n";
 //        Object[] params = {mes, datepicker};
 //
-//        /*startingdate = */ JOptionPane.showConfirmDialog(container, params, "Start date", JOptionPane.PLAIN_MESSAGE);
+       /*startingdate = */ JOptionPane.showMessageDialog(container,"Start date");
         for (int i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
         }
@@ -230,7 +219,7 @@ public class PlanningWindow extends JFrame {
         if (source == lmBox) {
 
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("guitar")) {
+                if (c.getId().startsWith("LM")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -243,7 +232,7 @@ public class PlanningWindow extends JFrame {
             }
         } else if (source == ucrBox) {
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("piano")) {
+                if (c.getId().startsWith("UCR")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -256,7 +245,7 @@ public class PlanningWindow extends JFrame {
             }
         } else if (source == hcBox) {
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("german")) {
+                if (c.getId().startsWith("HC")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -270,7 +259,7 @@ public class PlanningWindow extends JFrame {
             }
         } else if (source == cmBox) {
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("french")) {
+                if (c.getId().startsWith("CM")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -287,16 +276,15 @@ public class PlanningWindow extends JFrame {
 
     private void initializeFilm() {
 
-        for (Film film : this.filmList) {
+        this.filmList.forEach((film) -> {
             Contact contact = new Contact();
-            contact.setId(film.getType() + film.getID());
+            contact.setId(film.getType() + Integer.toString(film.getID()));
             contact.setName(film.getNom());
-            films.add(contact.getName());
-            calendar.getContacts().add(contact);
-            CfilmList.add(contact);
-
-        }
-
+            this.films.add(contact.getName());
+            this.calendar.getContacts().add(contact);
+            this.CfilmList.add(contact);
+            System.out.println("FilmID : " + film.getID() + " " + film.getNom() + " " + film.getType() + " " + film.getDuree());
+        });
     }
 
     protected void onCalendarDraw(DrawEvent e) {

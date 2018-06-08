@@ -22,7 +22,6 @@ public class JDBC {
     private static final String DB_USER = "p1623009";
     private static final String DB_PASSWORD = "288070";
 
-    
 //    public static void main(String[] argv) {
 //
 //        try {
@@ -39,7 +38,7 @@ public class JDBC {
 //    
 //    
     public static ArrayList selectFilmFromDB() throws SQLException {
-        
+
         ArrayList<Film> listFilm = new ArrayList<>();
         Connection dbConnection = null;
         Statement statement = null;
@@ -54,7 +53,7 @@ public class JDBC {
 
 //             execute select SQL stetement
             ResultSet rs = statement.executeQuery(selectTableSQL);
-            
+
             while (rs.next()) {
 
                 int filmid = Integer.parseInt(rs.getString("ID"));
@@ -66,34 +65,31 @@ public class JDBC {
                 String[] parts = duree.split(":");
                 Duration duree2 = Duration.ZERO;
                 switch (parts.length) {
-                    case 3:
-                        {
-                            int hours = Integer.parseInt(parts[0]);
-                            int minutes = Integer.parseInt(parts[1]);
-                            int seconds = Integer.parseInt(parts[2]);
-                            duree2 = duree2.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
-                            break;
-                        }
-                    case 2:
-                        {
-                            int hours = Integer.parseInt(parts[0]);
-                            int minutes = Integer.parseInt(parts[1]);
-                            duree2 = duree2.plusHours(hours).plusMinutes(minutes);
-                            break;
-                        }
+                    case 3: {
+                        int hours = Integer.parseInt(parts[0]);
+                        int minutes = Integer.parseInt(parts[1]);
+                        int seconds = Integer.parseInt(parts[2]);
+                        duree2 = duree2.plusHours(hours).plusMinutes(minutes).plusSeconds(seconds);
+                        break;
+                    }
+                    case 2: {
+                        int hours = Integer.parseInt(parts[0]);
+                        int minutes = Integer.parseInt(parts[1]);
+                        duree2 = duree2.plusHours(hours).plusMinutes(minutes);
+                        break;
+                    }
                     default:
                         System.out.println("ERROR - Unexpected input.");
                         break;
                 }
 
                 Film film = new Film(filmid, filmname, realisateur, type, duree2);
-                
-                listFilm.add(film);
-                
-//                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
 
+                listFilm.add(film);
+
+//                System.out.println("FilmID : " + filmid + " " + filmname + " " + type + " " + duree2);
             }
-            
+
         } catch (SQLException e) {
 
             System.out.println(e.getMessage());
@@ -109,13 +105,13 @@ public class JDBC {
             }
 
         }
-        
+
         return listFilm;
-    
+
     }
-    
+
     public static ArrayList selectStaffFromDB() throws SQLException {
-        
+
         ArrayList<Personne> listStaff = new ArrayList<>();
         Connection dbConnection = null;
         Statement statement = null;
@@ -130,7 +126,7 @@ public class JDBC {
 
 //             execute select SQL stetement
             ResultSet rs = statement.executeQuery(selectTableSQL);
-            
+
             while (rs.next()) {
 
                 int staffID = Integer.parseInt(rs.getString("ID"));
@@ -139,13 +135,12 @@ public class JDBC {
                 String mdp = rs.getString("MDP");
 
                 Personne staff = new Personne(staffID, staffName, staffSurname, "Staff", mdp);
-                
-                listStaff.add(staff);
-                
-//                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
 
+                listStaff.add(staff);
+
+//                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
             }
-            
+
         } catch (SQLException e) {
 
             System.out.println(e.getMessage());
@@ -161,9 +156,9 @@ public class JDBC {
             }
 
         }
-        
+
         return listStaff;
-    
+
     }
 
     private static Connection getDBConnection() {
