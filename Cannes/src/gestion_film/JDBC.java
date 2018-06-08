@@ -13,6 +13,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.time.*;
 
+import gestion_VIP.*;
+
 public class JDBC {
 
     private static final String DB_DRIVER = "oracle.jdbc.driver.OracleDriver";
@@ -42,7 +44,7 @@ public class JDBC {
         Connection dbConnection = null;
         Statement statement = null;
 
-        String selectTableSQL = "SELECT * from FILM";
+        String selectTableSQL = "SELECT * from FILM;";
 
         try {
             dbConnection = getDBConnection();
@@ -109,6 +111,58 @@ public class JDBC {
         }
         
         return listFilm;
+    
+    }
+    
+    public static ArrayList selectStaffFromDB() throws SQLException {
+        
+        ArrayList<Personne> listStaff = new ArrayList<>();
+        Connection dbConnection = null;
+        Statement statement = null;
+
+        String selectTableSQL = "SELECT ID,NOM,PRENOM,MDP from PERSONNE P, STAFF S WHERE P.ID = S.ID_STAFF;";
+
+        try {
+            dbConnection = getDBConnection();
+            statement = dbConnection.createStatement();
+
+            System.out.println(selectTableSQL);
+
+//             execute select SQL stetement
+            ResultSet rs = statement.executeQuery(selectTableSQL);
+            
+            while (rs.next()) {
+
+                int staffID = Integer.parseInt(rs.getString("ID"));
+                String staffName = rs.getString("NOM");
+                String staffSurname = rs.getString("PRENOM");
+                String mdp = rs.getString("MDP");
+
+                Personne staff = new Personne(staffID, staffName, staffSurname, "Staff", mdp);
+                
+                listStaff.add(staff);
+                
+//                System.out.println("FilmID : " + filmid + " " + filmname + " " + duree2);
+
+            }
+            
+        } catch (SQLException e) {
+
+            System.out.println(e.getMessage());
+
+        } finally {
+
+            if (statement != null) {
+                statement.close();
+            }
+
+            if (dbConnection != null) {
+                dbConnection.close();
+            }
+
+        }
+        
+        return listStaff;
     
     }
 
