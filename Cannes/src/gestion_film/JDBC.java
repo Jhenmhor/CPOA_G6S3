@@ -43,7 +43,7 @@ public class JDBC {
         Connection dbConnection = null;
         Statement statement = null;
 
-        String selectTableSQL = "SELECT * from FILM;";
+        String selectTableSQL = "SELECT * from FILM";
 
         try {
             dbConnection = getDBConnection();
@@ -116,7 +116,7 @@ public class JDBC {
         Connection dbConnection = null;
         Statement statement = null;
 
-        String selectTableSQL = "SELECT ID,NOM,PRENOM,MDP from PERSONNE P, STAFF S WHERE P.ID = S.ID_STAFF;";
+        String selectTableSQL = "SELECT ID,NOM,PRENOM,MDP from PERSONNE P, STAFF S WHERE P.ID = S.ID_STAFF";
 
         try {
             dbConnection = getDBConnection();

@@ -42,6 +42,7 @@ import javafx.stage.Stage;
 //</editor-fold>
 
 import gestion_film.*;
+import java.sql.SQLException;
 
 /**
  * Original creation by Golemija on 12/9/2015. modification by Toussaint on
@@ -50,7 +51,7 @@ import gestion_film.*;
  * @author Golemija & Toussaint
  */
 public class PlanningWindow extends JFrame {
-
+    
     private JCheckBox lmBox;
     private JCheckBox cmBox;
     private JCheckBox hcBox;
@@ -58,14 +59,11 @@ public class PlanningWindow extends JFrame {
     private Choice films;
     private AwtCalendar calendar;
     private ArrayList<Contact> CfilmList;
-    private ArrayList<Film> filmList;
+    
+    private final ArrayList<Film> filmList;
 
-    public PlanningWindow() {
-        try {
-            this.filmList = JDBC.selectFilmFromDB();
-        } catch (Exception exp) {
-        }
-
+    public PlanningWindow(ArrayList<Film> filmList) {
+        this.filmList = filmList;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("MindFusion Java Scheduler : Film Timetable");
 
@@ -76,7 +74,7 @@ public class PlanningWindow extends JFrame {
         container.setLayout(springLayout);
 
         films = new Choice();
-
+        
         lmBox = new JCheckBox("Long Métrage");
         lmBox.setSelected(true);
         lmBox.addItemListener(new ItemListener() {
@@ -118,7 +116,7 @@ public class PlanningWindow extends JFrame {
         container.add(ucrBox);
         container.add(hcBox);
         container.add(cmBox);
-
+        
         springLayout.putConstraint(SpringLayout.SOUTH, cmBox, -5, SpringLayout.SOUTH, container);
         springLayout.putConstraint(SpringLayout.WEST, cmBox, 5, SpringLayout.EAST, lmBox);
 
@@ -156,7 +154,7 @@ public class PlanningWindow extends JFrame {
 //        String mes = "Choose Starting Date :\n";
 //        Object[] params = {mes, datepicker};
 //
-       /*startingdate = */ JOptionPane.showMessageDialog(container,"Start date");
+        /*startingdate = */ JOptionPane.showMessageDialog(container, "Start date");
         for (int i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
         }
@@ -197,9 +195,9 @@ public class PlanningWindow extends JFrame {
             }
 
         });
-
+        
         initializeFilm();
-
+        
         container.add(calendar);
     }
 
@@ -276,15 +274,15 @@ public class PlanningWindow extends JFrame {
 
     private void initializeFilm() {
 
-        this.filmList.forEach((film) -> {
+        for (Film film : filmList ) {
             Contact contact = new Contact();
-            contact.setId(film.getType() + Integer.toString(film.getID()));
+            contact.setId(film.getType() + "_" + Integer.toString(film.getID()));
             contact.setName(film.getNom());
-            this.films.add(contact.getName());
-            this.calendar.getContacts().add(contact);
-            this.CfilmList.add(contact);
+            films.add(contact.getName());
+            calendar.getContacts().add(contact);
+            CfilmList.add(contact);
             System.out.println("FilmID : " + film.getID() + " " + film.getNom() + " " + film.getType() + " " + film.getDuree());
-        });
+        }
     }
 
     protected void onCalendarDraw(DrawEvent e) {
@@ -398,16 +396,25 @@ public class PlanningWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        
+        ArrayList<Film> filmList;
+        
+        try {
+        
+            filmList = JDBC.selectFilmFromDB();
+            
+            SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 PlanningWindow window = null;
                 try {
-                    window = new PlanningWindow();
+                    window = new PlanningWindow(filmList);
                     window.setVisible(true);
                 } catch (Exception exp) {
                 }
             }
         });
+        } catch (SQLException exp) {
+        }
     }
 
 //    private class CustomDatePicker extends PlanningWindow {
