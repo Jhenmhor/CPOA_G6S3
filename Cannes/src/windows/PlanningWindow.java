@@ -7,6 +7,13 @@ package windows;
 
 import java.awt.Color;
 
+//<editor-fold defaultstate="collapsed" desc="#import mindfusion">
+import com.mindfusion.scheduling.*;
+import com.mindfusion.scheduling.model.*;
+import com.mindfusion.drawing.*;
+import com.mindfusion.common.*;
+//</editor-fold>
+
 /**
  *
  * @author Toussaint
@@ -22,7 +29,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         Color myBlack = new Color(20,20,20);
         Color myGold = new Color(200,164,97);
         
-        this.getContentPane().setBackground(myBlack);
+        getContentPane().setBackground(myBlack);
     }
 
     /**
@@ -118,6 +125,11 @@ public class PlanningWindow extends javax.swing.JFrame {
         quitButton.setBackground(new java.awt.Color(200, 164, 97));
         quitButton.setForeground(new java.awt.Color(20, 20, 20));
         quitButton.setText("Quitter Application");
+        quitButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitButtonActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout quitPanelLayout = new javax.swing.GroupLayout(quitPanel);
         quitPanel.setLayout(quitPanelLayout);
@@ -166,8 +178,6 @@ public class PlanningWindow extends javax.swing.JFrame {
         );
 
         panelCalendar.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 164, 97)));
-
-        panelJour.setBackground(new java.awt.Color(20, 20, 20));
 
         jpButton.setBackground(new java.awt.Color(200, 164, 97));
         jpButton.setForeground(new java.awt.Color(20, 20, 20));
@@ -484,6 +494,11 @@ public class PlanningWindow extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_jsButtonActionPerformed
 
+    private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_quitButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -519,6 +534,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         });
     }
 
+//<editor-fold defaultstate="collapsed" desc=" palette variable declaration">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox bazCheck;
     private javax.swing.JCheckBox bazCheck1;
@@ -585,4 +601,5 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox ucrCheck1;
     private javax.swing.JCheckBox ucrCheck2;
     // End of variables declaration//GEN-END:variables
+//</editor-fold>
 }
