@@ -50,19 +50,19 @@ import java.sql.SQLException;
  *
  * @author Golemija & Toussaint
  */
-public class PlanningWindow extends JFrame {
-    
+public class ScrapPlanningWindow extends JFrame {
+
     private JCheckBox lmBox;
     private JCheckBox cmBox;
     private JCheckBox hcBox;
     private JCheckBox ucrBox;
     private Choice films;
     private AwtCalendar calendar;
-    private ArrayList<Contact> CfilmList;
-    
+    ArrayList<Contact> cfilmList;
+
     private final ArrayList<Film> filmList;
 
-    public PlanningWindow(ArrayList<Film> filmList) {
+    public ScrapPlanningWindow(ArrayList<Film> filmList) {
         this.filmList = filmList;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         setTitle("MindFusion Java Scheduler : Film Timetable");
@@ -74,7 +74,7 @@ public class PlanningWindow extends JFrame {
         container.setLayout(springLayout);
 
         films = new Choice();
-        
+
         lmBox = new JCheckBox("Long Métrage");
         lmBox.setSelected(true);
         lmBox.addItemListener(new ItemListener() {
@@ -116,7 +116,7 @@ public class PlanningWindow extends JFrame {
         container.add(ucrBox);
         container.add(hcBox);
         container.add(cmBox);
-        
+
         springLayout.putConstraint(SpringLayout.SOUTH, cmBox, -5, SpringLayout.SOUTH, container);
         springLayout.putConstraint(SpringLayout.WEST, cmBox, 5, SpringLayout.EAST, lmBox);
 
@@ -195,9 +195,9 @@ public class PlanningWindow extends JFrame {
             }
 
         });
-        
+
         initializeFilm();
-        
+
         container.add(calendar);
     }
 
@@ -216,7 +216,7 @@ public class PlanningWindow extends JFrame {
 
         if (source == lmBox) {
 
-            for (Contact c : CfilmList) {
+            for (Contact c : cfilmList) {
                 if (c.getId().startsWith("LM")) {
 
                     if (addItems) {
@@ -229,7 +229,7 @@ public class PlanningWindow extends JFrame {
                 }
             }
         } else if (source == ucrBox) {
-            for (Contact c : CfilmList) {
+            for (Contact c : cfilmList) {
                 if (c.getId().startsWith("UCR")) {
 
                     if (addItems) {
@@ -242,7 +242,7 @@ public class PlanningWindow extends JFrame {
                 }
             }
         } else if (source == hcBox) {
-            for (Contact c : CfilmList) {
+            for (Contact c : cfilmList) {
                 if (c.getId().startsWith("HC")) {
 
                     if (addItems) {
@@ -256,7 +256,7 @@ public class PlanningWindow extends JFrame {
                 }
             }
         } else if (source == cmBox) {
-            for (Contact c : CfilmList) {
+            for (Contact c : cfilmList) {
                 if (c.getId().startsWith("CM")) {
 
                     if (addItems) {
@@ -274,13 +274,13 @@ public class PlanningWindow extends JFrame {
 
     private void initializeFilm() {
 
-        for (Film film : filmList ) {
+        for (Film film : filmList) {
             Contact contact = new Contact();
             contact.setId(film.getType() + "_" + Integer.toString(film.getID()));
             contact.setName(film.getNom());
             films.add(contact.getName());
             calendar.getContacts().add(contact);
-            CfilmList.add(contact);
+            cfilmList.add(contact);
             System.out.println("FilmID : " + film.getID() + " " + film.getNom() + " " + film.getType() + " " + film.getDuree());
         }
     }
@@ -396,28 +396,32 @@ public class PlanningWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        
+
         ArrayList<Film> filmList;
-        
+
         try {
-        
+
             filmList = JDBC.selectFilmFromDB();
+
+            for (Film f : filmList) {
+                System.out.println(f.getNom());
+            }
             
             SwingUtilities.invokeLater(new Runnable() {
-            public void run() {
-                PlanningWindow window = null;
-                try {
-                    window = new PlanningWindow(filmList);
-                    window.setVisible(true);
-                } catch (Exception exp) {
+                public void run() {
+                    ScrapPlanningWindow window = null;
+                    try {
+                        window = new ScrapPlanningWindow(filmList);
+                        window.setVisible(true);
+                    } catch (Exception exp) {
+                    }
                 }
-            }
-        });
+            });
         } catch (SQLException exp) {
         }
     }
 
-//    private class CustomDatePicker extends PlanningWindow {
+//    private class CustomDatePicker extends ScrapPlanningWindow {
 //
 //        private Stage stage;
 //        private DatePicker startingDatePicker;
