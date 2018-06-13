@@ -36,27 +36,44 @@ import com.mindfusion.scheduling.model.ItemEvent;
 import com.mindfusion.scheduling.Calendar;
 //</editor-fold>
 
+import gestion_film.Film;
+import gestion_film.JDBC;
+import gestion_film.Planning;
+
 /**
  *
  * @author Toussaint
  */
 public class PlanningWindow extends javax.swing.JFrame {
 
+    private ArrayList<Film> listFilm;
+    private Planning baseplanning;
 
     /**
      * Creates new form PlanningWindow
      */
     public PlanningWindow() {
-        initComponents();
         
+        initComponents();
+        this.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        
+        try {
+            listFilm = JDBC.selectFilmFromDB();
+//            for (Film f : listFilm) {
+//                System.out.println(f.getNom());
+//            }
+        } catch (Exception exp) {
+        }
+
         Color myBlack = new Color(20, 20, 20);
         Color myGold = new Color(200, 164, 97);
-        
+
         getContentPane().setBackground(myBlack);
 
+        //<editor-fold defaultstate="collapsed" desc="calendar.init()">
         calendar.beginInit();
-        calendar.setCurrentView(CalendarView.Timetable);
-        calendar.setTheme(ThemeType.Light);
+        calendar.setCurrentView(3);
+        calendar.setTheme(1);
         calendar.setCustomDraw(CustomDrawElements.TimetableItem);
         calendar.setGroupType(GroupType.FilterByContacts);
 
@@ -73,24 +90,23 @@ public class PlanningWindow extends javax.swing.JFrame {
         calendar.getTimetableSettings().getDates().clear();
 
         DateTime startingDate = getStartingDate();
-        
+
         for (int i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
         }
 
         calendar.getTimetableSettings().setItemOffset(30);
-        calendar.getTimetableSettings().setShowItemSpans(false);
+        calendar.getTimetableSettings().setShowItemSpans(true);
         calendar.getTimetableSettings().setSnapInterval(Duration.fromMinutes(1));
         calendar.getTimetableSettings().setVisibleColumns(7);
         calendar.endInit();
-        
-        
-        
-        
+        //</editor-fold>
+
     }
 
     private DateTime getStartingDate() {
         DateTime startingdate = DateTime.today();
+
         return startingdate;
     }
 
@@ -103,6 +119,7 @@ public class PlanningWindow extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jInternalFrame1 = new javax.swing.JInternalFrame();
         title = new javax.swing.JPanel();
         titleLabel = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -142,6 +159,19 @@ public class PlanningWindow extends javax.swing.JFrame {
         jComboBox2 = new javax.swing.JComboBox<>();
         jComboBox3 = new javax.swing.JComboBox<>();
         jComboBox4 = new javax.swing.JComboBox<>();
+
+        jInternalFrame1.setVisible(true);
+
+        javax.swing.GroupLayout jInternalFrame1Layout = new javax.swing.GroupLayout(jInternalFrame1.getContentPane());
+        jInternalFrame1.getContentPane().setLayout(jInternalFrame1Layout);
+        jInternalFrame1Layout.setHorizontalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jInternalFrame1Layout.setVerticalGroup(
+            jInternalFrame1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(20, 20, 20));
@@ -567,7 +597,7 @@ public class PlanningWindow extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
-        
+
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -618,6 +648,7 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
+    private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel7;
