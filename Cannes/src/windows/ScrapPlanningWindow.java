@@ -395,31 +395,31 @@ public class ScrapPlanningWindow extends JFrame {
         return startingDate;
     }
 
-    public static void main(String[] args) {
-
-        ArrayList<Film> filmList;
-
-        try {
-
-            filmList = JDBC.selectFilmFromDB();
-
-            for (Film f : filmList) {
-                System.out.println(f.getNom());
-            }
-            
-            SwingUtilities.invokeLater(new Runnable() {
-                public void run() {
-                    ScrapPlanningWindow window = null;
-                    try {
-                        window = new ScrapPlanningWindow(filmList);
-                        window.setVisible(true);
-                    } catch (Exception exp) {
-                    }
-                }
-            });
-        } catch (SQLException exp) {
-        }
-    }
+//    public static void main(String[] args) {
+//
+//        ArrayList<Film> filmList;
+//
+//        try {
+//
+//            filmList = JDBC.selectFilmFromDB();
+//
+//            for (Film f : filmList) {
+//                System.out.println(f.getNom());
+//            }
+//            
+//            SwingUtilities.invokeLater(new Runnable() {
+//                public void run() {
+//                    ScrapPlanningWindow window = null;
+//                    try {
+//                        window = new ScrapPlanningWindow(filmList);
+//                        window.setVisible(true);
+//                    } catch (Exception exp) {
+//                    }
+//                }
+//            });
+//        } catch (SQLException exp) {
+//        }
+//    }
 
 //    private class CustomDatePicker extends ScrapPlanningWindow {
 //

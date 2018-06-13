@@ -5,13 +5,35 @@
  */
 package windows;
 
+//<editor-fold defaultstate="collapsed" desc="#import java windows item">
+import javax.imageio.ImageIO;
+import javax.swing.*;
+import java.awt.*;
 import java.awt.Color;
+import java.awt.event.*;
+import java.awt.event.ItemListener;
+import java.io.BufferedInputStream;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.*;
+import java.util.List;
+import static javax.swing.JFrame.EXIT_ON_CLOSE;
+//</editor-fold>
 
 //<editor-fold defaultstate="collapsed" desc="#import mindfusion">
+import com.mindfusion.common.DateTime;
+import com.mindfusion.common.Duration;
+import com.mindfusion.common.MouseButtons;
+import com.mindfusion.common.ChangeListener;
+import com.mindfusion.drawing.Brushes;
+import com.mindfusion.drawing.Colors;
+import com.mindfusion.drawing.awt.AwtImage;
 import com.mindfusion.scheduling.*;
+import com.mindfusion.scheduling.awt.AwtCalendar;
 import com.mindfusion.scheduling.model.*;
-import com.mindfusion.drawing.*;
-import com.mindfusion.common.*;
+import com.mindfusion.scheduling.model.ItemEvent;
+import com.mindfusion.scheduling.Calendar;
 //</editor-fold>
 
 /**
@@ -20,16 +42,56 @@ import com.mindfusion.common.*;
  */
 public class PlanningWindow extends javax.swing.JFrame {
 
+
     /**
      * Creates new form PlanningWindow
      */
     public PlanningWindow() {
         initComponents();
         
-        Color myBlack = new Color(20,20,20);
-        Color myGold = new Color(200,164,97);
+        Color myBlack = new Color(20, 20, 20);
+        Color myGold = new Color(200, 164, 97);
         
         getContentPane().setBackground(myBlack);
+
+        calendar.beginInit();
+        calendar.setCurrentView(CalendarView.Timetable);
+        calendar.setTheme(ThemeType.Light);
+        calendar.setCustomDraw(CustomDrawElements.TimetableItem);
+        calendar.setGroupType(GroupType.FilterByContacts);
+
+        calendar.getTimetableSettings().getCellStyle().setBorderBottomColor(new com.mindfusion.drawing.Color(169, 169, 169));
+        calendar.getTimetableSettings().getCellStyle().setBorderBottomWidth(1);
+        calendar.getTimetableSettings().getCellStyle().setBorderLeftColor(new com.mindfusion.drawing.Color(169, 169, 169));
+        calendar.getTimetableSettings().getCellStyle().setBorderLeftWidth(1);
+        calendar.getTimetableSettings().getCellStyle().setBorderRightColor(new com.mindfusion.drawing.Color(169, 169, 169));
+        calendar.getTimetableSettings().getCellStyle().setBorderRightWidth(1);
+        calendar.getTimetableSettings().getCellStyle().setBorderTopColor(new com.mindfusion.drawing.Color(169, 169, 169));
+        calendar.getTimetableSettings().getCellStyle().setBorderTopWidth(1);
+        calendar.getTimetableSettings().getCellStyle().setHeaderTextShadowOffset(0);
+        calendar.getTimetableSettings().getCellStyle().setHeaderTextShadowStyle(ShadowStyle.None);
+        calendar.getTimetableSettings().getDates().clear();
+
+        DateTime startingDate = getStartingDate();
+        
+        for (int i = 0; i < 15; i++) {
+            calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
+        }
+
+        calendar.getTimetableSettings().setItemOffset(30);
+        calendar.getTimetableSettings().setShowItemSpans(false);
+        calendar.getTimetableSettings().setSnapInterval(Duration.fromMinutes(1));
+        calendar.getTimetableSettings().setVisibleColumns(7);
+        calendar.endInit();
+        
+        
+        
+        
+    }
+
+    private DateTime getStartingDate() {
+        DateTime startingdate = DateTime.today();
+        return startingdate;
     }
 
     /**
@@ -56,6 +118,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         cdButton = new javax.swing.JButton();
         jsButton = new javax.swing.JButton();
         panelSchedule = new javax.swing.JPanel();
+        calendar = new com.mindfusion.scheduling.awt.AwtCalendar();
         jTabbedOption2 = new javax.swing.JTabbedPane();
         jTabbedAffichage2 = new javax.swing.JPanel();
         jLabel7 = new javax.swing.JLabel();
@@ -101,7 +164,7 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addComponent(titleLabel)
                 .addGap(217, 217, 217)
                 .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, Short.MAX_VALUE))
+                .addGap(0, 326, Short.MAX_VALUE))
         );
         titleLayout.setVerticalGroup(
             titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -208,18 +271,18 @@ public class PlanningWindow extends javax.swing.JFrame {
         panelSchedule.setLayout(panelScheduleLayout);
         panelScheduleLayout.setHorizontalGroup(
             panelScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 631, Short.MAX_VALUE)
+            .addComponent(calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelScheduleLayout.setVerticalGroup(
             panelScheduleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 450, Short.MAX_VALUE)
+            .addComponent(calendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
         javax.swing.GroupLayout panelCalendarLayout = new javax.swing.GroupLayout(panelCalendar);
         panelCalendar.setLayout(panelCalendarLayout);
         panelCalendarLayout.setHorizontalGroup(
             panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelJour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addComponent(panelJour, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
             .addComponent(panelSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelCalendarLayout.setVerticalGroup(
@@ -343,7 +406,7 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addComponent(soiCheck2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bazCheck2)
-                .addContainerGap(200, Short.MAX_VALUE))
+                .addContainerGap(188, Short.MAX_VALUE))
         );
 
         jTabbedOption2.addTab("Affichage", jTabbedAffichage2);
@@ -440,7 +503,7 @@ public class PlanningWindow extends javax.swing.JFrame {
             jTabbedEvenementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jTabbedEvenementLayout.createSequentialGroup()
                 .addComponent(createPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 199, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
                 .addComponent(modifButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(delButton)
@@ -475,7 +538,7 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedOption2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jTabbedOption2, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(quitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -496,7 +559,7 @@ public class PlanningWindow extends javax.swing.JFrame {
 
     private void quitButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitButtonActionPerformed
         // TODO add your handling code here:
-        
+        System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
     /**
@@ -504,6 +567,7 @@ public class PlanningWindow extends javax.swing.JFrame {
      */
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
+        
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
@@ -536,54 +600,33 @@ public class PlanningWindow extends javax.swing.JFrame {
 
 //<editor-fold defaultstate="collapsed" desc=" palette variable declaration">
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox bazCheck;
-    private javax.swing.JCheckBox bazCheck1;
     private javax.swing.JCheckBox bazCheck2;
-    private javax.swing.JCheckBox bunCheck;
-    private javax.swing.JCheckBox bunCheck1;
     private javax.swing.JCheckBox bunCheck2;
+    private com.mindfusion.scheduling.awt.AwtCalendar calendar;
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton cdButton;
-    private javax.swing.JCheckBox cmCheck;
-    private javax.swing.JCheckBox cmCheck1;
     private javax.swing.JCheckBox cmCheck2;
     private javax.swing.JButton createButton;
     private javax.swing.JPanel createPanel;
-    private javax.swing.JCheckBox debCheck;
-    private javax.swing.JCheckBox debCheck1;
     private javax.swing.JCheckBox debCheck2;
     private javax.swing.JButton delButton;
     private javax.swing.JPanel detail;
     private javax.swing.JLabel detailLabel;
-    private javax.swing.JCheckBox gtlCheck;
-    private javax.swing.JCheckBox gtlCheck1;
     private javax.swing.JCheckBox gtlCheck2;
-    private javax.swing.JCheckBox hcCheck;
-    private javax.swing.JCheckBox hcCheck1;
     private javax.swing.JCheckBox hcCheck2;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JComboBox<String> jComboBox2;
     private javax.swing.JComboBox<String> jComboBox3;
     private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jTabbedAffichage;
-    private javax.swing.JPanel jTabbedAffichage1;
     private javax.swing.JPanel jTabbedAffichage2;
     private javax.swing.JPanel jTabbedEvenement;
-    private javax.swing.JTabbedPane jTabbedOption;
-    private javax.swing.JTabbedPane jTabbedOption1;
     private javax.swing.JTabbedPane jTabbedOption2;
     private javax.swing.JButton jpButton;
     private javax.swing.JButton jsButton;
-    private javax.swing.JCheckBox lmCheck;
-    private javax.swing.JCheckBox lmCheck1;
     private javax.swing.JCheckBox lmCheck2;
     private javax.swing.JButton modifButton;
     private javax.swing.JPanel panelCalendar;
@@ -592,13 +635,9 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JButton quitButton;
     private javax.swing.JPanel quitPanel;
     private javax.swing.JButton saveButton;
-    private javax.swing.JCheckBox soiCheck;
-    private javax.swing.JCheckBox soiCheck1;
     private javax.swing.JCheckBox soiCheck2;
     private javax.swing.JPanel title;
     private javax.swing.JLabel titleLabel;
-    private javax.swing.JCheckBox ucrCheck;
-    private javax.swing.JCheckBox ucrCheck1;
     private javax.swing.JCheckBox ucrCheck2;
     // End of variables declaration//GEN-END:variables
 //</editor-fold>

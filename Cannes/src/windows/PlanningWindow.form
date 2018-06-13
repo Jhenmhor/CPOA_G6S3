@@ -57,7 +57,7 @@
               <EmptySpace max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" attributes="0">
                   <Component id="panelCalendar" max="32767" attributes="0"/>
-                  <Component id="jTabbedOption2" max="32767" attributes="0"/>
+                  <Component id="jTabbedOption2" pref="477" max="32767" attributes="0"/>
               </Group>
               <EmptySpace min="-2" max="-2" attributes="0"/>
               <Group type="103" groupAlignment="0" max="-2" attributes="0">
@@ -90,7 +90,7 @@
                   <Component id="titleLabel" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="217" max="-2" attributes="0"/>
                   <Component id="jLabel4" min="-2" pref="174" max="-2" attributes="0"/>
-                  <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
+                  <EmptySpace min="0" pref="326" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>
@@ -257,7 +257,7 @@
       <Layout>
         <DimensionLayout dim="0">
           <Group type="103" groupAlignment="0" attributes="0">
-              <Component id="panelJour" max="32767" attributes="0"/>
+              <Component id="panelJour" pref="631" max="32767" attributes="0"/>
               <Component id="panelSchedule" alignment="0" max="32767" attributes="0"/>
           </Group>
         </DimensionLayout>
@@ -322,15 +322,19 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="631" max="32767" attributes="0"/>
+                  <Component id="calendar" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <EmptySpace min="0" pref="450" max="32767" attributes="0"/>
+                  <Component id="calendar" alignment="0" max="32767" attributes="0"/>
               </Group>
             </DimensionLayout>
           </Layout>
+          <SubComponents>
+            <Component class="com.mindfusion.scheduling.awt.AwtCalendar" name="calendar">
+            </Component>
+          </SubComponents>
         </Container>
       </SubComponents>
     </Container>
@@ -417,7 +421,7 @@
                       <Component id="soiCheck2" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="bazCheck2" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="200" max="32767" attributes="0"/>
+                      <EmptySpace pref="188" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -569,7 +573,7 @@
               <Group type="103" groupAlignment="0" attributes="0">
                   <Group type="102" alignment="1" attributes="0">
                       <Component id="createPanel" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="199" max="32767" attributes="0"/>
+                      <EmptySpace pref="187" max="32767" attributes="0"/>
                       <Component id="modifButton" min="-2" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="delButton" min="-2" max="-2" attributes="0"/>
