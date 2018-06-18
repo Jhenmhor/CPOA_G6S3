@@ -17,6 +17,7 @@ public class Evenement {
     private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private final int id;
     private String info;
+    private Film film;
     private Salle lieu;
     private Date dateDebut;
     private Date dateFin;
@@ -25,10 +26,11 @@ public class Evenement {
         this.id = id;
     }
 
-    public Evenement(int id, String info, Salle lieu, String dateDebut, String dateFin) {
+    public Evenement(int id, String info,Film film, Salle lieu, String dateDebut, String dateFin) {
         this.id = id;
         this.info = info;
         this.lieu = lieu;
+        
         try {
             this.dateDebut = dateFormat.parse(dateDebut);
             this.dateFin = dateFormat.parse(dateFin);
@@ -39,6 +41,14 @@ public class Evenement {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
+    public static DateFormat getDateFormat() {
+        return dateFormat;
+    }
+
+    public int getId() {
+        return id;
+    }
+
     public String getInfo() {
         return info;
     }
@@ -62,7 +72,7 @@ public class Evenement {
     public void setDateDebut(String dateDebut) {
         try {
             this.dateDebut = dateFormat.parse(dateDebut);
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erreur format Date");
         }
     }
@@ -74,7 +84,7 @@ public class Evenement {
     public void setDateFin(String dateFin) {
         try {
             this.dateDebut = dateFormat.parse(dateFin);
-        } catch(Exception e){
+        } catch (Exception e) {
             System.out.println("Erreur format Date");
         }
     }
