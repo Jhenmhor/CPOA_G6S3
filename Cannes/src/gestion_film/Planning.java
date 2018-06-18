@@ -16,7 +16,6 @@ import java.util.ArrayList;
 public class Planning {
 
     private final int id;
-    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     private ArrayList<Film> listFilm = new ArrayList<>();
     private ArrayList<Evenement> listEvenement;
     private ArrayList<Salle> listSalle;
@@ -26,22 +25,83 @@ public class Planning {
         this.id = id;
         this.listFilm = listFilm;
         try {
-            this.dateDebut = dateFormat.parse(dateDebut);
+            this.dateDebut = Evenement.getDateFormat().parse(dateDebut);
         } catch (Exception e) {
-
+            System.out.println("Erreur Format Date");
         }
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
-        
+
+        DateFormat formatHoraire = Salle.getHoraireFormat();
+        DateFormat dateFormat = Evenement.getDateFormat();
+
+        ArrayList<Date> listHoraireGTL = null;
+        ArrayList<Date> listHoraireDeb = null;
+        ArrayList<Date> listHoraireBun = null;
+        ArrayList<Date> listHoraireSoi = null;
+        ArrayList<Date> listHoraireBaz = null;
+
+        try {
+
+            //<editor-fold defaultstate="collapsed" desc="List Horaire Salle">
+            listHoraireGTL.add(formatHoraire.parse("08:30:00"));
+            listHoraireGTL.add(formatHoraire.parse("11:30:00"));
+            listHoraireGTL.add(formatHoraire.parse("14:00:00"));
+            listHoraireGTL.add(formatHoraire.parse("15:00:00"));
+            listHoraireGTL.add(formatHoraire.parse("16:00:00"));
+            listHoraireGTL.add(formatHoraire.parse("18:00:00"));
+            listHoraireGTL.add(formatHoraire.parse("19:00:00"));
+            listHoraireGTL.add(formatHoraire.parse("21:00:00"));
+            listHoraireGTL.add(formatHoraire.parse("22:00:00"));
+
+            listHoraireDeb.add(formatHoraire.parse("08:30:00"));
+            listHoraireDeb.add(formatHoraire.parse("11:30:00"));
+            listHoraireDeb.add(formatHoraire.parse("14:00:00"));
+            listHoraireDeb.add(formatHoraire.parse("15:00:00"));
+            listHoraireDeb.add(formatHoraire.parse("16:00:00"));
+            listHoraireDeb.add(formatHoraire.parse("18:00:00"));
+            listHoraireDeb.add(formatHoraire.parse("19:00:00"));
+            listHoraireDeb.add(formatHoraire.parse("21:00:00"));
+            listHoraireDeb.add(formatHoraire.parse("22:00:00"));
+
+            listHoraireBun.add(formatHoraire.parse("08:30:00"));
+            listHoraireBun.add(formatHoraire.parse("18:00:00"));
+            listHoraireBun.add(formatHoraire.parse("19:00:00"));
+
+            listHoraireSoi.add(formatHoraire.parse("08:30:00"));
+            listHoraireSoi.add(formatHoraire.parse("11:30:00"));
+            listHoraireSoi.add(formatHoraire.parse("14:00:00"));
+            listHoraireSoi.add(formatHoraire.parse("15:00:00"));
+            listHoraireSoi.add(formatHoraire.parse("16:00:00"));
+            listHoraireSoi.add(formatHoraire.parse("18:00:00"));
+            listHoraireSoi.add(formatHoraire.parse("19:00:00"));
+            listHoraireSoi.add(formatHoraire.parse("21:00:00"));
+            listHoraireSoi.add(formatHoraire.parse("22:00:00"));
+
+            listHoraireBaz.add(formatHoraire.parse("08:30:00"));
+            listHoraireBaz.add(formatHoraire.parse("11:30:00"));
+            listHoraireBaz.add(formatHoraire.parse("14:00:00"));
+            listHoraireBaz.add(formatHoraire.parse("15:00:00"));
+            listHoraireBaz.add(formatHoraire.parse("16:00:00"));
+            listHoraireBaz.add(formatHoraire.parse("18:00:00"));
+            listHoraireBaz.add(formatHoraire.parse("19:00:00"));
+            listHoraireBaz.add(formatHoraire.parse("21:00:00"));
+            listHoraireBaz.add(formatHoraire.parse("22:00:00"));
+//</editor-fold>
+
+            this.listSalle.add(new Salle("Le Grand Théatre Lumière", listHoraireGTL));
+            this.listSalle.add(new Salle("La salle Debussy", listHoraireDeb));
+            this.listSalle.add(new Salle("La salle Buñuel", listHoraireBun));
+            this.listSalle.add(new Salle("La salle du Soixantième", listHoraireSoi));
+            this.listSalle.add(new Salle("La salle Bazin", listHoraireBaz));
+            
+            
+            
+            
+            
+            
+        } catch (Exception e) {
+            System.out.println("Erreur Format Date");
+        }
+
     }
 
     public boolean addEvenement(Evenement e) {
@@ -111,11 +171,7 @@ public class Planning {
         return "Planning Bon";
     }
 
-    /**
-     *
-     * @return
-     */
-    public //<editor-fold defaultstate="collapsed" desc="Getter">
+    //<editor-fold defaultstate="collapsed" desc="Getter">
     public int getId() {
         return id;
     }

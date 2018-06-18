@@ -17,19 +17,23 @@ public class Salle {
 
     private static final DateFormat horaireFormat = new SimpleDateFormat("HH:mm:ss");
     private final String nom;
-    private final ArrayList<SimpleDateFormat> horaires;
+    private final ArrayList<Date> horaires;
 
-    public Salle(String nom, ArrayList<SimpleDateFormat> horaires) {
+    public Salle(String nom, ArrayList<Date> horaires) {
         this.nom = nom;
         this.horaires = horaires;
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter">
+    public static DateFormat getHoraireFormat() {
+        return horaireFormat;
+    }
+
     public String getNom() {
         return nom;
     }
 
-    public ArrayList<SimpleDateFormat> getHoraires() {
+    public ArrayList<Date> getHoraires() {
         return horaires;
     }
 //</editor-fold>
