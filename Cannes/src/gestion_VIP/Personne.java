@@ -51,6 +51,9 @@ public class Personne {
     public String getMdp() {
         return mdp;
     }
+    public int getid() {
+        return id;
+    }
     
     public void setMdp(String mdp) {
         this.mdp = mdp;

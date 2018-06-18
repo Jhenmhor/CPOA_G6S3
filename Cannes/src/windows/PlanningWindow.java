@@ -36,14 +36,39 @@ import com.mindfusion.scheduling.model.ItemEvent;
 import com.mindfusion.scheduling.Calendar;
 //</editor-fold>
 
+<<<<<<< HEAD
+import gestion_film.*;
+import java.sql.SQLException;
+=======
 import gestion_film.Film;
 import gestion_film.JDBC;
 import gestion_film.Planning;
+>>>>>>> refs/remotes/origin/master
 
 /**
  *
  * @author Toussaint
  */
+<<<<<<< HEAD
+public class PlanningWindow extends JFrame {
+    
+    private JCheckBox lmBox;
+    private JCheckBox cmBox;
+    private JCheckBox hcBox;
+    private JCheckBox ucrBox;
+    private Choice films;
+    private AwtCalendar calendar;
+    private ArrayList<Contact> CfilmList;
+    
+    private final ArrayList<Film> filmList;
+
+    public PlanningWindow(ArrayList<Film> filmList) {
+        this.filmList = filmList;
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        setTitle("MindFusion Java Scheduler : Film Timetable");
+
+        setMinimumSize(new Dimension(800, 600));
+=======
 public class PlanningWindow extends javax.swing.JFrame {
 
     private ArrayList<Film> listFilm;
@@ -67,17 +92,82 @@ public class PlanningWindow extends javax.swing.JFrame {
 
         Color myBlack = new Color(20, 20, 20);
         Color myGold = new Color(200, 164, 97);
+>>>>>>> refs/remotes/origin/master
 
         getContentPane().setBackground(myBlack);
 
+<<<<<<< HEAD
+        films = new Choice();
+        
+        lmBox = new JCheckBox("Long Métrage");
+        lmBox.setSelected(true);
+        lmBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent e) {
+                checkBoxChanged(e);
+            }
+        });
+
+        ucrBox = new JCheckBox("Un Certain Regard");
+        ucrBox.setSelected(true);
+        ucrBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent e) {
+                checkBoxChanged(e);
+            }
+        });
+
+        hcBox = new JCheckBox("Hors Compétition");
+        hcBox.setSelected(true);
+        hcBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent e) {
+                checkBoxChanged(e);
+            }
+        });
+
+        cmBox = new JCheckBox("Court Métrage");
+        cmBox.setSelected(true);
+        cmBox.addItemListener(new ItemListener() {
+            @Override
+            public void itemStateChanged(java.awt.event.ItemEvent e) {
+                checkBoxChanged(e);
+            }
+        });
+
+        container.add(films);
+        container.add(lmBox);
+        container.add(ucrBox);
+        container.add(hcBox);
+        container.add(cmBox);
+        
+        springLayout.putConstraint(SpringLayout.SOUTH, cmBox, -5, SpringLayout.SOUTH, container);
+        springLayout.putConstraint(SpringLayout.WEST, cmBox, 5, SpringLayout.EAST, lmBox);
+
+        springLayout.putConstraint(SpringLayout.SOUTH, ucrBox, -5, SpringLayout.SOUTH, container);
+        springLayout.putConstraint(SpringLayout.WEST, ucrBox, 5, SpringLayout.EAST, cmBox);
+
+        springLayout.putConstraint(SpringLayout.SOUTH, hcBox, -5, SpringLayout.SOUTH, container);
+        springLayout.putConstraint(SpringLayout.WEST, hcBox, 5, SpringLayout.EAST, ucrBox);
+
+        JLabel label = new JLabel("Sélectionner un film :");
+        container.add(label);
+
+        calendar = new AwtCalendar();
+=======
         //<editor-fold defaultstate="collapsed" desc="calendar.init()">
+>>>>>>> refs/remotes/origin/master
         calendar.beginInit();
         calendar.setCurrentView(3);
         calendar.setTheme(1);
         calendar.setCustomDraw(CustomDrawElements.TimetableItem);
         calendar.setGroupType(GroupType.FilterByContacts);
 
+<<<<<<< HEAD
+        calendar.getTimetableSettings().getCellStyle().setBorderBottomColor(new Color(169, 169, 169));
+=======
         calendar.getTimetableSettings().getCellStyle().setBorderBottomColor(new com.mindfusion.drawing.Color(169, 169, 169));
+>>>>>>> refs/remotes/origin/master
         calendar.getTimetableSettings().getCellStyle().setBorderBottomWidth(1);
         calendar.getTimetableSettings().getCellStyle().setBorderLeftColor(new com.mindfusion.drawing.Color(169, 169, 169));
         calendar.getTimetableSettings().getCellStyle().setBorderLeftWidth(1);
@@ -91,6 +181,14 @@ public class PlanningWindow extends javax.swing.JFrame {
 
         DateTime startingDate = getStartingDate();
 
+<<<<<<< HEAD
+//        DatePicker datepicker = new DatePicker();
+//        String mes = "Choose Starting Date :\n";
+//        Object[] params = {mes, datepicker};
+//
+        /*startingdate = */ JOptionPane.showMessageDialog(container, "Start date");
+=======
+>>>>>>> refs/remotes/origin/master
         for (int i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
         }
@@ -102,12 +200,49 @@ public class PlanningWindow extends javax.swing.JFrame {
         calendar.endInit();
         //</editor-fold>
 
+<<<<<<< HEAD
+        springLayout.putConstraint(SpringLayout.EAST, calendar, 0, SpringLayout.EAST, container);
+        springLayout.putConstraint(SpringLayout.NORTH, calendar, 0, SpringLayout.NORTH, container);
+        springLayout.putConstraint(SpringLayout.WEST, calendar, 0, SpringLayout.WEST, container);
+        springLayout.putConstraint(SpringLayout.SOUTH, calendar, -35, SpringLayout.NORTH, lmBox);
+
+        springLayout.putConstraint(SpringLayout.WEST, films, 5, SpringLayout.EAST, label);
+        springLayout.putConstraint(SpringLayout.SOUTH, films, -5, SpringLayout.NORTH, lmBox);
+
+        springLayout.putConstraint(SpringLayout.WEST, label, 5, SpringLayout.WEST, container);
+        springLayout.putConstraint(SpringLayout.SOUTH, label, -5, SpringLayout.NORTH, lmBox);
+
+        springLayout.putConstraint(SpringLayout.SOUTH, lmBox, -5, SpringLayout.SOUTH, container);
+        springLayout.putConstraint(SpringLayout.WEST, lmBox, 5, SpringLayout.WEST, container);
+
+        calendar.setEnableDragCreate(true);
+
+        calendar.addCalendarListener(new CalendarAdapter() {
+            public void draw(DrawEvent e) {
+                onCalendarDraw(e);
+            }
+
+            public void itemCreated(ItemEvent e) {
+                onItemCreated(e);
+            }
+
+            public void itemCreating(ItemConfirmEvent e) {
+                onCalendarItemCreating(e);
+            }
+
+        });
+        
+        initializeFilm();
+        
+        container.add(calendar);
+=======
     }
 
     private DateTime getStartingDate() {
         DateTime startingdate = DateTime.today();
 
         return startingdate;
+>>>>>>> refs/remotes/origin/master
     }
 
     /**
@@ -115,6 +250,56 @@ public class PlanningWindow extends javax.swing.JFrame {
      * WARNING: Do NOT modify this code. The content of this method is always
      * regenerated by the Form Editor.
      */
+<<<<<<< HEAD
+    private void checkBoxChanged(java.awt.event.ItemEvent e) {
+        boolean addItems = true;
+        //Now that we know which Box was pushed, find out
+        //whether it was selected or deselected.
+        if (e.getStateChange() == java.awt.event.ItemEvent.DESELECTED) {
+            addItems = false;
+        }
+
+        Object source = e.getItemSelectable();
+
+        if (source == lmBox) {
+
+            for (Contact c : CfilmList) {
+                if (c.getId().startsWith("LM")) {
+
+                    if (addItems) {
+                        calendar.getContacts().add(c);
+                        films.add(c.getName());
+                    } else {
+                        calendar.getContacts().remove(c);
+                        films.remove(c.getName());
+                    }
+                }
+            }
+        } else if (source == ucrBox) {
+            for (Contact c : CfilmList) {
+                if (c.getId().startsWith("UCR")) {
+
+                    if (addItems) {
+                        calendar.getContacts().add(c);
+                        films.add(c.getName());
+                    } else {
+                        calendar.getContacts().remove(c);
+                        films.remove(c.getName());
+                    }
+                }
+            }
+        } else if (source == hcBox) {
+            for (Contact c : CfilmList) {
+                if (c.getId().startsWith("HC")) {
+
+                    if (addItems) {
+                        calendar.getContacts().add(c);
+                        films.add(c.getName());
+                    } else {
+                        calendar.getContacts().remove(c);
+                        films.remove(c.getName());
+                    }
+=======
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -223,6 +408,7 @@ public class PlanningWindow extends javax.swing.JFrame {
                 quitButtonActionPerformed(evt);
             }
         });
+>>>>>>> refs/remotes/origin/master
 
         javax.swing.GroupLayout quitPanelLayout = new javax.swing.GroupLayout(quitPanel);
         quitPanel.setLayout(quitPanelLayout);
@@ -279,6 +465,45 @@ public class PlanningWindow extends javax.swing.JFrame {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jpButtonActionPerformed(evt);
             }
+<<<<<<< HEAD
+        } else if (source == cmBox) {
+            for (Contact c : CfilmList) {
+                if (c.getId().startsWith("CM")) {
+
+                    if (addItems) {
+                        calendar.getContacts().add(c);
+                        films.add(c.getName());
+                    } else {
+                        calendar.getContacts().remove(c);
+                        films.remove(c.getName());
+                    }
+                }
+            }
+
+        }
+    }
+
+    private void initializeFilm() {
+
+        for (Film film : filmList ) {
+            Contact contact = new Contact();
+            contact.setId(film.getType() + "_" + Integer.toString(film.getID()));
+            contact.setName(film.getNom());
+            films.add(contact.getName());
+            calendar.getContacts().add(contact);
+            CfilmList.add(contact);
+            System.out.println("FilmID : " + film.getID() + " " + film.getNom() + " " + film.getType() + " " + film.getDuree());
+        }
+    }
+
+    protected void onCalendarDraw(DrawEvent e) {
+        if (e.getElement() == CustomDrawElements.TimetableItem) {
+
+            Appointment app = (Appointment) e.getItem();
+
+            if (app.getContacts().size() == 0) {
+                return;
+=======
         });
         panelJour.add(jpButton);
 
@@ -343,6 +568,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         ucrCheck2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ucrCheckActionPerformed(evt);
+>>>>>>> refs/remotes/origin/master
             }
         });
 
@@ -620,12 +846,36 @@ public class PlanningWindow extends javax.swing.JFrame {
         }
         //</editor-fold>
 
+<<<<<<< HEAD
+        return startingDate;
+    }
+
+    public static void main(String[] args) {
+        
+        ArrayList<Film> filmList;
+        
+        try {
+        
+            filmList = JDBC.selectFilmFromDB();
+            
+            SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                PlanningWindow window = null;
+                try {
+                    window = new PlanningWindow(filmList);
+                    window.setVisible(true);
+                } catch (Exception exp) {
+                }
+=======
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new PlanningWindow().setVisible(true);
+>>>>>>> refs/remotes/origin/master
             }
         });
+        } catch (SQLException exp) {
+        }
     }
 
 //<editor-fold defaultstate="collapsed" desc=" palette variable declaration">
