@@ -16,12 +16,32 @@ import java.util.ArrayList;
 public class Planning {
 
     private final int id;
-    ArrayList<Film> listFilm = new ArrayList<>();
+    private static final DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private ArrayList<Film> listFilm = new ArrayList<>();
     private ArrayList<Evenement> listEvenement;
+    private ArrayList<Salle> listSalle;
+    private Date dateDebut;
 
-    public Planning(int id, ArrayList<Film> listFilm) {
+    public Planning(int id, ArrayList<Film> listFilm, String dateDebut) {
         this.id = id;
         this.listFilm = listFilm;
+        try {
+            this.dateDebut = dateFormat.parse(dateDebut);
+        } catch (Exception e) {
+
+        }
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
+        
     }
 
     public boolean addEvenement(Evenement e) {
@@ -90,15 +110,12 @@ public class Planning {
         }
         return "Planning Bon";
     }
-    
-    public
-    
-    
-    
-    
-    
-    //<editor-fold defaultstate="collapsed" desc="Getter">
 
+    /**
+     *
+     * @return
+     */
+    public //<editor-fold defaultstate="collapsed" desc="Getter">
     public int getId() {
         return id;
     }

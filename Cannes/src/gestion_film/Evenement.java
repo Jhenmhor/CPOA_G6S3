@@ -26,11 +26,11 @@ public class Evenement {
         this.id = id;
     }
 
-    public Evenement(int id, String info,Film film, Salle lieu, String dateDebut, String dateFin) {
+    public Evenement(int id, String info, Film film, Salle lieu, String dateDebut, String dateFin) {
         this.id = id;
         this.info = info;
         this.lieu = lieu;
-        
+        this.film = film;
         try {
             this.dateDebut = dateFormat.parse(dateDebut);
             this.dateFin = dateFormat.parse(dateFin);
@@ -41,6 +41,14 @@ public class Evenement {
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
+    public Film getFilm() {
+        return film;
+    }
+
+    public void setFilm(Film film) {
+        this.film = film;
+    }
+
     public static DateFormat getDateFormat() {
         return dateFormat;
     }
