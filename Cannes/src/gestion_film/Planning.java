@@ -19,13 +19,9 @@ public class Planning {
     ArrayList<Film> listFilm = new ArrayList<>();
     private ArrayList<Evenement> listEvenement;
 
-    public Planning(int id) {
+    public Planning(int id, ArrayList<Film> listFilm) {
         this.id = id;
-        try {
-            this.listFilm = JDBC.selectFilmFromDB();
-        } catch (Exception e) {
-            System.out.println("Erreur chargement Film");
-        }
+        this.listFilm = listFilm;
     }
 
     public boolean addEvenement(Evenement e) {
@@ -94,6 +90,13 @@ public class Planning {
         }
         return "Planning Bon";
     }
+    
+    public
+    
+    
+    
+    
+    
     //<editor-fold defaultstate="collapsed" desc="Getter">
 
     public int getId() {
