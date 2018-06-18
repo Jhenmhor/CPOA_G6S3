@@ -5,7 +5,7 @@
 --  DDL for Table FILM
 --------------------------------------------------------
 
-  CREATE TABLE "P1623009"."FILM" 
+  CREATE TABLE IF NOT EXISTS "P1623009"."FILM" 
    (	"ID" NUMBER, 
 	"NOM" VARCHAR2(100 BYTE), 
 	"TYPE" VARCHAR2(20 BYTE), 
