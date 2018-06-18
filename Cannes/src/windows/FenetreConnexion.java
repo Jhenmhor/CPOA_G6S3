@@ -18,6 +18,7 @@ import javax.swing.*;
 import javax.swing.table.*;
 import javax.swing.table.DefaultTableModel;
 import static javax.swing.JOptionPane.INFORMATION_MESSAGE;
+import javax.swing.JScrollPane;
 
 /**
  *
@@ -29,48 +30,74 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
     JTextField mdp, id;
     JButton bconnexion /*, bnewcompte*/;
     JPanel panel, panellogo, paneltire, panelsaisi, panelbouton, panelfooter;
+    JScrollPane scroll;
     Object c;
     ArrayList<Personne> staff;
-
+    
     public FenetreConnexion() {
+        //On recupere depuis la base de données les informations du staff
+        //et on les stock dans  la table staff
         try {
             this.staff = JDBC.selectStaffFromDB();
         } catch (Exception exp) {
-        }
 
+        }//tester la connexion
+        for (Personne s : staff) {
+            String mdpbd = s.getMdp();
+            int idbd = s.getid();
+            System.out.println(mdpbd + " " + Integer.toString(idbd) + "test");
+        }
+       
         bconnexion = new JButton("Se connecter");
-        //bnewcompte = new JButton("creer un compte");
-        //bconnexion.setBackground(Color.GREEN);
+        bconnexion.setPreferredSize(new Dimension(120, 40));
+        bconnexion.setBackground(new Color(200,164,97));
         c = bconnexion.getColorModel();
         mdp = new JTextField("", 10);
         id = new JTextField("", 10);
         logo = new JLabel(new ImageIcon("src/windows/img2.png"));
         titre = new JLabel("Acceder à votre session ");
         //changer la taille et la police du titre
-        Font f = new Font("Serif", Font.PLAIN, 36); // par exemple
+        Font f = new Font("Serif", Font.PLAIN, 36);
         titre.setFont(f);
         labelmdp = new JLabel("saisissez votre mot de passe ");
         labelid = new JLabel("saisissez votre identifiant ");
         textFooter = new JLabel("Created by GUEYE & DECROZANT & PERREAUT");
 
+        //Container c = getContentPane();
+        //c.add(panel);
         panel = (JPanel) getContentPane();
-        panel.setLayout(new GridLayout(6, 1));
+        //scroll=new JScrollPane(logo);
+        //this.add(scroll);
+        //c.add(scroll);
 
+        panel.setLayout(
+        new GridLayout(6, 1));
+        //definition des layouts
         FlowLayout posLayout = new FlowLayout(FlowLayout.LEFT);
         GridLayout layoutsaisi = new GridLayout(2, 2, 15, 20);
         GridLayout layouttitre = new GridLayout(1, 0);
         FlowLayout posLayoutCenter = new FlowLayout(FlowLayout.CENTER);
+        //affectation des layouts
         paneltire = new JPanel(posLayoutCenter);
         panelsaisi = new JPanel(layoutsaisi);
         panelbouton = new JPanel(posLayoutCenter);
         panelfooter = new JPanel(posLayoutCenter);
         panellogo = new JPanel(posLayoutCenter);
-
+        
         // AJOUT DE BORDURE
         panel.setBorder(BorderFactory.createTitledBorder("connexion"));
-        paneltire.setBorder(BorderFactory.createTitledBorder("  "));
+        //paneltire.setBorder(BorderFactory.createTitledBorder("  "));
         panelsaisi.setBorder(BorderFactory.createTitledBorder("  "));
         panelbouton.setBorder(BorderFactory.createTitledBorder("  "));
+        
+        //changer la couleur des panels
+        panel.setBackground(Color.white);
+        panelsaisi.setBackground(Color.white);
+        panelbouton.setBackground(Color.white);
+        panellogo.setBackground(Color.white);
+        paneltire.setBackground(Color.white);
+        panelfooter.setBackground(Color.white);
+        
         //on affecte à chaque panel les comppsants appropriés
         panellogo.add(logo);
         paneltire.add(titre);
@@ -81,99 +108,105 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         // panelbouton.add(bnewcompte);
         panelbouton.add(bconnexion);
         panelfooter.add(textFooter);
+        
         //on ajoute les panels dans le panel principal
-        panel.add(panellogo);
+        panel.add(logo);
+        //panel.add(panellogo);
         panel.add(paneltire);
         panel.add(panelsaisi);
         panel.add(panelbouton);
         panel.add(panelfooter);
+        
         // GESTION  DES EVENEMENTS
         //on relie les elements concernés au classes interne
         bconnexion.addActionListener(new verifyconnexion());
-
+        bconnexion.addMouseListener(new BoutonModifer());
+        
     }
-    
-    class verifyconnexion implements ActionListener 
-    {
-        public void actionPerformed(ActionEvent e) 
-        {
-            boolean reponse=true;
-            if(tryParseFloat(id.getText()) == null) {
-                    JOptionPane.showMessageDialog(FenetreConnexion.this, "'identifiant est composé de chiffre",
-                            "message information", JOptionPane.INFORMATION_MESSAGE);
-            }else{ //verification avec la bd
+
+    class verifyconnexion implements ActionListener {
+
+        public void actionPerformed(ActionEvent e) {
+            boolean reponse;
+            if (tryParseFloat(id.getText()) == null) {
+                JOptionPane.showMessageDialog(FenetreConnexion.this, "'identifiant est composé de chiffre",
+                        "message information", JOptionPane.INFORMATION_MESSAGE);
+            } else { //verification avec la bd
                 //convertir l'id en int
-                 int idint = Integer.parseInt(id.getText());
-                reponse=verifybd (idint, mdp.getText());
-                if(reponse==false){
+                int idint = Integer.parseInt(id.getText());
+                reponse = verifybd(idint, mdp.getText());
+                System.out.println(mdp.getText() + " " + Integer.toString(idint) + "test");
+                if (reponse == false) {
                     JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe incorrecte!",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
-                }else{
-                   JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte. veuillez attendre la redirection!",
-                            "message information", JOptionPane.INFORMATION_MESSAGE); 
+                } else {
+                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte. veuillez attendre la redirection!",
+                            "message information", JOptionPane.INFORMATION_MESSAGE);
                 }
             }
-                
+
         }
-   }
+    }
     //comparer les donnes entrees avec celles de la bd
-   public boolean verifybd (int id, String mdp)
-         {
-             //parcour de la table staff
-             for(Personne s : staff){
-                 String mdpbd=s.getMdp();
-                 int idbd=s.getid();
-                 if (id== idbd && mdp==mdpbd){
-                    return true;
-                }
-             }           
-             return false;
-         }
-    //chiffrer l'id
+    public boolean verifybd(int id, String mdp) {
+        //parcour de la table staff
+        for (Personne s : staff) {
+            String mdpbd = s.getMdp();
+            int idbd = s.getid();
+            if (id == idbd && mdp.equals(mdpbd)) {
+                return true;
+            }
+        }
+        return false;
+    }
+    //chiffrer l'identifiant
     Float tryParseFloat(String num) {
         try {
             return Float.parseFloat(num);
         } catch (NumberFormatException e) {
             //dialog
             return null;
+
         }
     }
-
     //classe interne qui change la couleur du bouton connecion lorsk la souris passe dessus
     class BoutonModifer extends MouseAdapter {
 
         public void mouseEntered(MouseEvent e) {
-            bconnexion.setSize(120, 40);
-            bconnexion.setForeground(Color.green);
-            //bconnexion.setBackground(Color.blue);
+            bconnexion.setForeground(Color.black);
+            bconnexion.setBackground(Color.GREEN);
         }
 
         public void mouseExited(MouseEvent e) {
             bconnexion.setText("Se connecter");
             bconnexion.setForeground(Color.black);
-            //  bconnexion.setBackground(Color.getColor(c));
+            bconnexion.setBackground(new Color(200,164,97));
         }
 
     }
- 
+        
+    //CLASSE MAIN
     public static void main(String[] args) {
-        FenetreConnexion connexion = new FenetreConnexion();
-        //taille de la fenetre( ya deux 2 manieres de le faire) 
-        //ça 
-        connexion.setSize(500, 700);
-        //ou ça
-        //premFen.pack();
-
-        // Positionnement au centre de l'écran
-        connexion.setLocationRelativeTo(null);
-        //titre de la fenetre
-        connexion.setTitle("FVC: Gestion des planning");
-        //affichage
-        connexion.setVisible(true);
-        //j'essaie de  changer le background mais ça n'a pas marché
-        connexion.setBackground(Color.red);
-        //  connexion.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
-
+    FenetreConnexion connexion = new FenetreConnexion();
+    //taille de la fenetre( ya deux 2 manieres de le faire) 
+    //ça 
+    // connexion.setSize(500, 700);
+    //ou ça
+    connexion.pack();
+    // Positionnement au centre de l'écran
+    connexion.setLocationRelativeTo(null);
+    //titre de la fenetre
+    connexion.setTitle("FVC: Gestion des planning");
+    //affichage
+    connexion.setVisible(true);
+    //j'essaie de  changer le background mais ça n'a pas marché
+   connexion.getContentPane().setBackground(Color.white);
+    //connexion.getContentPane().setBackground(new Color (20,20,20));
+//202020 //20016497
+    //changer le logo
+    connexion.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
+    //teste
+    System.out.println(connexion.getWidth() + " " + connexion.getHeight());
     }
 
 }

@@ -42,6 +42,7 @@ import javafx.stage.Stage;
 //</editor-fold>
 
 import gestion_film.*;
+import java.sql.SQLException;
 
 /**
  * Original creation by Golemija on 12/9/2015. modification by Toussaint on
@@ -50,7 +51,7 @@ import gestion_film.*;
  * @author Golemija & Toussaint
  */
 public class PlanningWindow extends JFrame {
-
+    
     private JCheckBox lmBox;
     private JCheckBox cmBox;
     private JCheckBox hcBox;
@@ -58,16 +59,13 @@ public class PlanningWindow extends JFrame {
     private Choice films;
     private AwtCalendar calendar;
     private ArrayList<Contact> CfilmList;
-    private ArrayList<Film> filmList;
+    
+    private final ArrayList<Film> filmList;
 
-    public PlanningWindow() {
-        try {
-            this.filmList = JDBC.selectFilmFromDB();
-        } catch (Exception exp) {
-        }
-
+    public PlanningWindow(ArrayList<Film> filmList) {
+        this.filmList = filmList;
         setDefaultCloseOperation(EXIT_ON_CLOSE);
-        setTitle("MindFusion Java Scheduler: Course Timetable");
+        setTitle("MindFusion Java Scheduler : Film Timetable");
 
         setMinimumSize(new Dimension(800, 600));
 
@@ -76,7 +74,7 @@ public class PlanningWindow extends JFrame {
         container.setLayout(springLayout);
 
         films = new Choice();
-
+        
         lmBox = new JCheckBox("Long Métrage");
         lmBox.setSelected(true);
         lmBox.addItemListener(new ItemListener() {
@@ -118,7 +116,7 @@ public class PlanningWindow extends JFrame {
         container.add(ucrBox);
         container.add(hcBox);
         container.add(cmBox);
-
+        
         springLayout.putConstraint(SpringLayout.SOUTH, cmBox, -5, SpringLayout.SOUTH, container);
         springLayout.putConstraint(SpringLayout.WEST, cmBox, 5, SpringLayout.EAST, lmBox);
 
@@ -138,17 +136,6 @@ public class PlanningWindow extends JFrame {
         calendar.setCustomDraw(CustomDrawElements.TimetableItem);
         calendar.setGroupType(GroupType.FilterByContacts);
 
-//        calendar.getSelection().getSelectedElementsStyle().setBorderBottomColor(com.mindfusion.drawing.Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderBottomWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderLeftColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderLeftWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderRightColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderRightWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderTopColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBorderTopWidth(-1);
-//        calendar.getSelection().getSelectedElementsStyle().setFillColor(Colors.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setBrush(Brushes.Transparent);
-//        calendar.getSelection().getSelectedElementsStyle().setHeaderBorderBottomColor(new Color(0, 0, 0, 0)); 
         calendar.getTimetableSettings().getCellStyle().setBorderBottomColor(new Color(169, 169, 169));
         calendar.getTimetableSettings().getCellStyle().setBorderBottomWidth(1);
         calendar.getTimetableSettings().getCellStyle().setBorderLeftColor(new Color(169, 169, 169));
@@ -167,7 +154,7 @@ public class PlanningWindow extends JFrame {
 //        String mes = "Choose Starting Date :\n";
 //        Object[] params = {mes, datepicker};
 //
-//        /*startingdate = */ JOptionPane.showConfirmDialog(container, params, "Start date", JOptionPane.PLAIN_MESSAGE);
+        /*startingdate = */ JOptionPane.showMessageDialog(container, "Start date");
         for (int i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
         }
@@ -208,9 +195,9 @@ public class PlanningWindow extends JFrame {
             }
 
         });
-
+        
         initializeFilm();
-
+        
         container.add(calendar);
     }
 
@@ -230,7 +217,7 @@ public class PlanningWindow extends JFrame {
         if (source == lmBox) {
 
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("guitar")) {
+                if (c.getId().startsWith("LM")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -243,7 +230,7 @@ public class PlanningWindow extends JFrame {
             }
         } else if (source == ucrBox) {
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("piano")) {
+                if (c.getId().startsWith("UCR")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -256,7 +243,7 @@ public class PlanningWindow extends JFrame {
             }
         } else if (source == hcBox) {
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("german")) {
+                if (c.getId().startsWith("HC")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -270,7 +257,7 @@ public class PlanningWindow extends JFrame {
             }
         } else if (source == cmBox) {
             for (Contact c : CfilmList) {
-                if (c.getId().startsWith("french")) {
+                if (c.getId().startsWith("CM")) {
 
                     if (addItems) {
                         calendar.getContacts().add(c);
@@ -287,16 +274,15 @@ public class PlanningWindow extends JFrame {
 
     private void initializeFilm() {
 
-        for (Film film : this.filmList) {
+        for (Film film : filmList ) {
             Contact contact = new Contact();
-            contact.setId(film.getType() + film.getID());
+            contact.setId(film.getType() + "_" + Integer.toString(film.getID()));
             contact.setName(film.getNom());
             films.add(contact.getName());
             calendar.getContacts().add(contact);
             CfilmList.add(contact);
-
+            System.out.println("FilmID : " + film.getID() + " " + film.getNom() + " " + film.getType() + " " + film.getDuree());
         }
-
     }
 
     protected void onCalendarDraw(DrawEvent e) {
@@ -410,16 +396,25 @@ public class PlanningWindow extends JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(new Runnable() {
+        
+        ArrayList<Film> filmList;
+        
+        try {
+        
+            filmList = JDBC.selectFilmFromDB();
+            
+            SwingUtilities.invokeLater(new Runnable() {
             public void run() {
                 PlanningWindow window = null;
                 try {
-                    window = new PlanningWindow();
+                    window = new PlanningWindow(filmList);
                     window.setVisible(true);
                 } catch (Exception exp) {
                 }
             }
         });
+        } catch (SQLException exp) {
+        }
     }
 
 //    private class CustomDatePicker extends PlanningWindow {
