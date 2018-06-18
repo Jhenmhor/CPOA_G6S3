@@ -18,19 +18,24 @@ public class Evenement {
     private final int id;
     private String info;
     private Salle lieu;
-    private DateFormat dateDebut;
-    private DateFormat dateFin;
+    private Date dateDebut;
+    private Date dateFin;
 
     public Evenement(int id) {
         this.id = id;
     }
 
-    public Evenement(int id, String info, Salle lieu, DateFormat dateDebut, DateFormat dateFin) {
+    public Evenement(int id, String info, Salle lieu, String dateDebut, String dateFin) {
         this.id = id;
         this.info = info;
         this.lieu = lieu;
-        this.dateDebut = dateDebut;
-        this.dateFin = dateFin;
+        try {
+            this.dateDebut = dateFormat.parse(dateDebut);
+            this.dateFin = dateFormat.parse(dateFin);
+
+        } catch (Exception e) {
+            System.out.println("Erreur format Date");
+        }
     }
 
     //<editor-fold defaultstate="collapsed" desc="Getter & Setter">
@@ -50,20 +55,28 @@ public class Evenement {
         this.lieu = lieu;
     }
 
-    public DateFormat getDateDebut() {
+    public Date getDateDebut() {
         return dateDebut;
     }
 
-    public void setDateDebut(DateFormat dateDebut) {
-        this.dateDebut = dateDebut;
+    public void setDateDebut(String dateDebut) {
+        try {
+            this.dateDebut = dateFormat.parse(dateDebut);
+        } catch(Exception e){
+            System.out.println("Erreur format Date");
+        }
     }
 
-    public DateFormat getDateFin() {
+    public Date getDateFin() {
         return dateFin;
     }
 
-    public void setDateFin(DateFormat dateFin) {
-        this.dateFin = dateFin;
+    public void setDateFin(String dateFin) {
+        try {
+            this.dateDebut = dateFormat.parse(dateFin);
+        } catch(Exception e){
+            System.out.println("Erreur format Date");
+        }
     }
     //</editor-fold>
 
