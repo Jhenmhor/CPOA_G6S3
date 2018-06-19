@@ -175,7 +175,6 @@ public class PlanningWindow extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(20, 20, 20));
-        setPreferredSize(new java.awt.Dimension(840, 720));
 
         title.setBackground(new java.awt.Color(20, 20, 20));
         title.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
