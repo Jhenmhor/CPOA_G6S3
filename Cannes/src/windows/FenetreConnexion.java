@@ -33,7 +33,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
     JScrollPane scroll;
     Object c;
     ArrayList<Personne> staff;
-    
+
     public FenetreConnexion() {
         //On recupere depuis la base de données les informations du staff
         //et on les stock dans  la table staff
@@ -47,10 +47,10 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
             int idbd = s.getid();
             System.out.println(mdpbd + " " + Integer.toString(idbd) + "test");
         }
-       
+
         bconnexion = new JButton("Se connecter");
         bconnexion.setPreferredSize(new Dimension(120, 40));
-        bconnexion.setBackground(new Color(200,164,97));
+        bconnexion.setBackground(new Color(200, 164, 97));
         c = bconnexion.getColorModel();
         mdp = new JTextField("", 10);
         id = new JTextField("", 10);
@@ -71,7 +71,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         //c.add(scroll);
 
         panel.setLayout(
-        new GridLayout(6, 1));
+                new GridLayout(6, 1));
         //definition des layouts
         FlowLayout posLayout = new FlowLayout(FlowLayout.LEFT);
         GridLayout layoutsaisi = new GridLayout(2, 2, 15, 20);
@@ -83,13 +83,13 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panelbouton = new JPanel(posLayoutCenter);
         panelfooter = new JPanel(posLayoutCenter);
         panellogo = new JPanel(posLayoutCenter);
-        
+
         // AJOUT DE BORDURE
         panel.setBorder(BorderFactory.createTitledBorder("connexion"));
         //paneltire.setBorder(BorderFactory.createTitledBorder("  "));
         panelsaisi.setBorder(BorderFactory.createTitledBorder("  "));
         panelbouton.setBorder(BorderFactory.createTitledBorder("  "));
-        
+
         //changer la couleur des panels
         panel.setBackground(Color.white);
         panelsaisi.setBackground(Color.white);
@@ -97,7 +97,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panellogo.setBackground(Color.white);
         paneltire.setBackground(Color.white);
         panelfooter.setBackground(Color.white);
-        
+
         //on affecte à chaque panel les comppsants appropriés
         panellogo.add(logo);
         paneltire.add(titre);
@@ -108,7 +108,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         // panelbouton.add(bnewcompte);
         panelbouton.add(bconnexion);
         panelfooter.add(textFooter);
-        
+
         //on ajoute les panels dans le panel principal
         panel.add(logo);
         //panel.add(panellogo);
@@ -116,12 +116,14 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panel.add(panelsaisi);
         panel.add(panelbouton);
         panel.add(panelfooter);
-        
+
         // GESTION  DES EVENEMENTS
         //on relie les elements concernés au classes interne
         bconnexion.addActionListener(new verifyconnexion());
         bconnexion.addMouseListener(new BoutonModifer());
-        
+        //windosw
+        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
     }
 
     class verifyconnexion implements ActionListener {
@@ -142,11 +144,14 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
                 } else {
                     JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte. veuillez attendre la redirection!",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
+                    PlanningWindow taSession = new PlanningWindow();
+                    FenetreConnexion.this.dispose();
                 }
             }
 
         }
     }
+
     //comparer les donnes entrees avec celles de la bd
     public boolean verifybd(int id, String mdp) {
         //parcour de la table staff
@@ -159,6 +164,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         }
         return false;
     }
+
     //chiffrer l'identifiant
     Float tryParseFloat(String num) {
         try {
@@ -169,6 +175,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
 
         }
     }
+
     //classe interne qui change la couleur du bouton connecion lorsk la souris passe dessus
     class BoutonModifer extends MouseAdapter {
 
@@ -180,33 +187,49 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         public void mouseExited(MouseEvent e) {
             bconnexion.setText("Se connecter");
             bconnexion.setForeground(Color.black);
-            bconnexion.setBackground(new Color(200,164,97));
+            bconnexion.setBackground(new Color(200, 164, 97));
         }
 
     }
-        
+
     //CLASSE MAIN
     public static void main(String[] args) {
-    FenetreConnexion connexion = new FenetreConnexion();
-    //taille de la fenetre( ya deux 2 manieres de le faire) 
-    //ça 
-    // connexion.setSize(500, 700);
-    //ou ça
-    connexion.pack();
-    // Positionnement au centre de l'écran
-    connexion.setLocationRelativeTo(null);
-    //titre de la fenetre
-    connexion.setTitle("FVC: Gestion des planning");
-    //affichage
-    connexion.setVisible(true);
-    //j'essaie de  changer le background mais ça n'a pas marché
-   connexion.getContentPane().setBackground(Color.white);
-    //connexion.getContentPane().setBackground(new Color (20,20,20));
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(FenetreConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(FenetreConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(FenetreConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(FenetreConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        FenetreConnexion connexion = new FenetreConnexion();
+        //taille de la fenetre( ya deux 2 manieres de le faire) 
+        //ça 
+        // connexion.setSize(500, 700);
+        //ou ça
+        connexion.pack();
+        // Positionnement au centre de l'écran
+        connexion.setLocationRelativeTo(null);
+        //titre de la fenetre
+        connexion.setTitle("FVC: Gestion des planning");
+        //affichage
+        connexion.setVisible(true);
+        //j'essaie de  changer le background mais ça n'a pas marché
+        connexion.getContentPane().setBackground(Color.white);
+        //connexion.getContentPane().setBackground(new Color (20,20,20));
 //202020 //20016497
-    //changer le logo
-    connexion.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
-    //teste
-    System.out.println(connexion.getWidth() + " " + connexion.getHeight());
+        //changer le logo
+        connexion.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
+        //teste
+        System.out.println(connexion.getWidth() + " " + connexion.getHeight());
     }
 
 }

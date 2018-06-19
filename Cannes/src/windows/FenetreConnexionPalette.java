@@ -38,15 +38,21 @@ public class FenetreConnexionPalette extends javax.swing.JFrame {
         mdp = new javax.swing.JLabel();
         mdptexte = new javax.swing.JTextField();
         idtexte = new javax.swing.JTextField();
-        jButton1 = new javax.swing.JButton();
+        boutonconnexion = new javax.swing.JButton();
+        jPanel1 = new javax.swing.JPanel();
+        title = new javax.swing.JPanel();
+        jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setIconImages(null);
 
         panelprincipal.setBackground(new java.awt.Color(102, 102, 102));
-        panelprincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(0, null, new java.awt.Color(255, 204, 51), null, null));
+        panelprincipal.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(255, 204, 51), null, null));
         panelprincipal.setToolTipText("page de connexion");
         panelprincipal.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        panelprincipal.setMaximumSize(new java.awt.Dimension(300, 500));
+        panelprincipal.setMinimumSize(new java.awt.Dimension(300, 500));
+        panelprincipal.setPreferredSize(new java.awt.Dimension(300, 500));
 
         footer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         footer.setText("Create by GUEYE & DECROZANT & PERREAUT");
@@ -64,8 +70,45 @@ public class FenetreConnexionPalette extends javax.swing.JFrame {
         idtexte.setText(" ");
         idtexte.setToolTipText("identifiant");
 
-        jButton1.setBackground(new java.awt.Color(200, 164, 97));
-        jButton1.setText("Se connecter");
+        boutonconnexion.setBackground(new java.awt.Color(200, 164, 97));
+        boutonconnexion.setText("Se connecter");
+
+        jPanel1.setToolTipText("");
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 146, Short.MAX_VALUE)
+        );
+
+        title.setBackground(new java.awt.Color(20, 20, 20));
+        title.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
+        title.setToolTipText("");
+
+        jLabel4.setForeground(new java.awt.Color(200, 164, 97));
+        jLabel4.setText("Cannes");
+
+        javax.swing.GroupLayout titleLayout = new javax.swing.GroupLayout(title);
+        title.setLayout(titleLayout);
+        titleLayout.setHorizontalGroup(
+            titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(titleLayout.createSequentialGroup()
+                .addGap(314, 314, 314)
+                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 130, Short.MAX_VALUE))
+        );
+        titleLayout.setVerticalGroup(
+            titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(titleLayout.createSequentialGroup()
+                .addContainerGap()
+                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
+                .addContainerGap())
+        );
 
         javax.swing.GroupLayout panelprincipalLayout = new javax.swing.GroupLayout(panelprincipal);
         panelprincipal.setLayout(panelprincipalLayout);
@@ -81,38 +124,48 @@ public class FenetreConnexionPalette extends javax.swing.JFrame {
             .addGroup(panelprincipalLayout.createSequentialGroup()
                 .addGroup(panelprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelprincipalLayout.createSequentialGroup()
-                        .addGap(117, 117, 117)
-                        .addComponent(titre))
-                    .addGroup(panelprincipalLayout.createSequentialGroup()
                         .addGap(92, 92, 92)
                         .addGroup(panelprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(mdp)
                             .addComponent(id)))
                     .addGroup(panelprincipalLayout.createSequentialGroup()
                         .addGap(276, 276, 276)
-                        .addComponent(jButton1)))
-                .addContainerGap(136, Short.MAX_VALUE))
+                        .addComponent(boutonconnexion))
+                    .addGroup(panelprincipalLayout.createSequentialGroup()
+                        .addGap(126, 126, 126)
+                        .addComponent(titre)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelprincipalLayout.createSequentialGroup()
+                .addGap(4, 4, 4)
+                .addComponent(title, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         panelprincipalLayout.setVerticalGroup(
             panelprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelprincipalLayout.createSequentialGroup()
-                .addGap(95, 95, 95)
+                .addContainerGap()
+                .addGroup(panelprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(title, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(31, 31, 31)
                 .addComponent(titre)
                 .addGroup(panelprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(panelprincipalLayout.createSequentialGroup()
-                        .addGap(86, 86, 86)
+                        .addGap(61, 61, 61)
                         .addComponent(id)
                         .addGap(24, 24, 24))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, panelprincipalLayout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                    .addGroup(panelprincipalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addComponent(idtexte, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)))
                 .addGroup(panelprincipalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(mdp)
                     .addComponent(mdptexte, javax.swing.GroupLayout.PREFERRED_SIZE, 28, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(53, 53, 53)
-                .addComponent(jButton1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 86, Short.MAX_VALUE)
+                .addComponent(boutonconnexion)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(footer)
                 .addGap(46, 46, 46))
         );
@@ -121,7 +174,9 @@ public class FenetreConnexionPalette extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelprincipal, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addComponent(panelprincipal, javax.swing.GroupLayout.PREFERRED_SIZE, 644, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(0, 0, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -167,13 +222,16 @@ public class FenetreConnexionPalette extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton boutonconnexion;
     private javax.swing.JLabel footer;
     private javax.swing.JLabel id;
     private javax.swing.JTextField idtexte;
-    private javax.swing.JButton jButton1;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JLabel mdp;
     private javax.swing.JTextField mdptexte;
     private javax.swing.JPanel panelprincipal;
+    private javax.swing.JPanel title;
     private javax.swing.JLabel titre;
     // End of variables declaration//GEN-END:variables
 }
