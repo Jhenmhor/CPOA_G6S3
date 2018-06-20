@@ -36,6 +36,10 @@ import com.mindfusion.scheduling.model.ItemEvent;
 import com.mindfusion.scheduling.Calendar;
 //</editor-fold>
 
+import java.time.*;
+import java.time.format.*;
+import java.text.SimpleDateFormat;
+
 import gestion_film.Film;
 import gestion_film.JDBC;
 import gestion_film.Planning;
@@ -53,10 +57,10 @@ public class PlanningWindow extends javax.swing.JFrame {
      * Creates new form PlanningWindow
      */
     public PlanningWindow() {
-        
+
         initComponents();
         this.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        
+
         try {
             listFilm = JDBC.selectFilmFromDB();
 //            for (Film f : listFilm) {
@@ -64,6 +68,17 @@ public class PlanningWindow extends javax.swing.JFrame {
 //            }
         } catch (Exception exp) {
         }
+
+        String[] listTitreFilm = new String[listFilm.size() + 1];
+        int i = 1;
+        listTitreFilm[0] = "Film";
+        for (Film film : listFilm) {
+            listTitreFilm[i] = film.getNom();
+            i++;
+        }
+        comboBoxJury.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Jury", "null"}));
+        comboBoxFilm.setModel(new javax.swing.DefaultComboBoxModel<>(listTitreFilm));
+        comboBoxSalle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[]{"Salle", "Grand Théatre Lumière", "Salle Debussy", "Salle Buñuel", "Salle du Soixantième", "Salle Bazin"}));
 
         Color myBlack = new Color(20, 20, 20);
         Color myGold = new Color(200, 164, 97);
@@ -73,7 +88,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         //<editor-fold defaultstate="collapsed" desc="calendar.init()">
         calendar.beginInit();
         calendar.setCurrentView(3);
-        calendar.setTheme(1);
+        calendar.setTheme(4);
         calendar.setCustomDraw(CustomDrawElements.TimetableItem);
         calendar.setGroupType(GroupType.FilterByContacts);
 
@@ -91,8 +106,14 @@ public class PlanningWindow extends javax.swing.JFrame {
 
         DateTime startingDate = getStartingDate();
 
-        for (int i = 0; i < 15; i++) {
+        String[] listDate = new String[16];
+        listDate[0] = "Date";
+        for (i = 0; i < 15; i++) {
             calendar.getTimetableSettings().getDates().add(startingDate.addDays(i - 1));
+            int jdate = startingDate.addDays(i - 1).getDay();
+            int mdate = startingDate.addDays(i - 1).getMonth();
+            int ydate = startingDate.addDays(i - 1).getYear();
+            listDate[i + 1] = jdate + "/" + mdate + "/" + ydate;
         }
 
         calendar.getTimetableSettings().setItemOffset(30);
@@ -102,11 +123,12 @@ public class PlanningWindow extends javax.swing.JFrame {
         calendar.endInit();
         //</editor-fold>
 
+        comboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(listDate));
+        
     }
 
     private DateTime getStartingDate() {
         DateTime startingdate = DateTime.today();
-
         return startingdate;
     }
 
@@ -155,10 +177,10 @@ public class PlanningWindow extends javax.swing.JFrame {
         createPanel = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         createButton = new javax.swing.JButton();
-        jComboBox1 = new javax.swing.JComboBox<>();
-        jComboBox2 = new javax.swing.JComboBox<>();
-        jComboBox3 = new javax.swing.JComboBox<>();
-        jComboBox4 = new javax.swing.JComboBox<>();
+        comboBoxDate = new javax.swing.JComboBox<>();
+        comboBoxFilm = new javax.swing.JComboBox<>();
+        comboBoxSalle = new javax.swing.JComboBox<>();
+        comboBoxJury = new javax.swing.JComboBox<>();
 
         jInternalFrame1.setVisible(true);
 
@@ -273,7 +295,7 @@ public class PlanningWindow extends javax.swing.JFrame {
 
         jpButton.setBackground(new java.awt.Color(200, 164, 97));
         jpButton.setForeground(new java.awt.Color(20, 20, 20));
-        jpButton.setText("Jour Precedent");
+        jpButton.setText("Semaine Precedente");
         jpButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jpButtonActionPerformed(evt);
@@ -288,7 +310,7 @@ public class PlanningWindow extends javax.swing.JFrame {
 
         jsButton.setBackground(new java.awt.Color(200, 164, 97));
         jsButton.setForeground(new java.awt.Color(20, 20, 20));
-        jsButton.setText("Jour Suivant");
+        jsButton.setText("Semaine Suivante");
         jsButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jsButtonActionPerformed(evt);
@@ -458,28 +480,33 @@ public class PlanningWindow extends javax.swing.JFrame {
         createButton.setBackground(new java.awt.Color(200, 164, 97));
         createButton.setForeground(new java.awt.Color(20, 20, 20));
         createButton.setText("Créer Evenement");
-
-        jComboBox1.setBackground(new java.awt.Color(200, 164, 97));
-        jComboBox1.setForeground(new java.awt.Color(20, 20, 20));
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date", "Item 2", "Item 3", "Item 4" }));
-        jComboBox1.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jComboBox1.addActionListener(new java.awt.event.ActionListener() {
+        createButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jComboBox1ActionPerformed(evt);
+                createButtonActionPerformed(evt);
             }
         });
 
-        jComboBox2.setBackground(new java.awt.Color(200, 164, 97));
-        jComboBox2.setForeground(new java.awt.Color(20, 20, 20));
-        jComboBox2.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Film", "Item 2", "Item 3", "Item 4" }));
+        comboBoxDate.setBackground(new java.awt.Color(200, 164, 97));
+        comboBoxDate.setForeground(new java.awt.Color(20, 20, 20));
+        comboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Date", "Item 2", "Item 3", "Item 4" }));
+        comboBoxDate.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        comboBoxDate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                comboBoxDateActionPerformed(evt);
+            }
+        });
 
-        jComboBox3.setBackground(new java.awt.Color(200, 164, 97));
-        jComboBox3.setForeground(new java.awt.Color(20, 20, 20));
-        jComboBox3.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Salle", "Item 2", "Item 3", "Item 4" }));
+        comboBoxFilm.setBackground(new java.awt.Color(200, 164, 97));
+        comboBoxFilm.setForeground(new java.awt.Color(20, 20, 20));
+        comboBoxFilm.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Film", "Item 2", "Item 3", "Item 4" }));
 
-        jComboBox4.setBackground(new java.awt.Color(200, 164, 97));
-        jComboBox4.setForeground(new java.awt.Color(20, 20, 20));
-        jComboBox4.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jury", "Item 2", "Item 3", "Item 4" }));
+        comboBoxSalle.setBackground(new java.awt.Color(200, 164, 97));
+        comboBoxSalle.setForeground(new java.awt.Color(20, 20, 20));
+        comboBoxSalle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Salle", "Item 2", "Item 3", "Item 4" }));
+
+        comboBoxJury.setBackground(new java.awt.Color(200, 164, 97));
+        comboBoxJury.setForeground(new java.awt.Color(20, 20, 20));
+        comboBoxJury.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Jury", "Item 2", "Item 3", "Item 4" }));
 
         javax.swing.GroupLayout createPanelLayout = new javax.swing.GroupLayout(createPanel);
         createPanel.setLayout(createPanelLayout);
@@ -489,13 +516,13 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(createPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(createButton, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox1, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox2, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jComboBox3, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboBoxDate, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboBoxFilm, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(comboBoxSalle, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(createPanelLayout.createSequentialGroup()
                         .addComponent(jLabel1)
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(jComboBox4, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(comboBoxJury, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         createPanelLayout.setVerticalGroup(
@@ -504,13 +531,13 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jLabel1)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxDate, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxFilm, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxSalle, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jComboBox4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(comboBoxJury, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(createButton)
                 .addContainerGap())
@@ -591,6 +618,22 @@ public class PlanningWindow extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
+    private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
+//        // TODO add your handling code here:
+//        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
+//        DateTime starttime = formatter.parseDateTime(comboBoxDate.getSelectedItem().toString());
+//        for (Film film : this.listFilm) {
+//            if (film.getNom().equals(comboBoxFilm.getSelectedItem().toString())) {
+//                Duration duree = film.getDuree();
+//            }
+//        }
+//
+//        DateTime endtime = ;
+//        Appointment item = new Appointment();
+//        item.setStartTime(starttime);
+
+    }//GEN-LAST:event_createButtonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -635,6 +678,10 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JButton cancelButton;
     private javax.swing.JButton cdButton;
     private javax.swing.JCheckBox cmCheck2;
+    private javax.swing.JComboBox<String> comboBoxDate;
+    private javax.swing.JComboBox<String> comboBoxFilm;
+    private javax.swing.JComboBox<String> comboBoxJury;
+    private javax.swing.JComboBox<String> comboBoxSalle;
     private javax.swing.JButton createButton;
     private javax.swing.JPanel createPanel;
     private javax.swing.JCheckBox debCheck2;
@@ -643,10 +690,6 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JLabel detailLabel;
     private javax.swing.JCheckBox gtlCheck2;
     private javax.swing.JCheckBox hcCheck2;
-    private javax.swing.JComboBox<String> jComboBox1;
-    private javax.swing.JComboBox<String> jComboBox2;
-    private javax.swing.JComboBox<String> jComboBox3;
-    private javax.swing.JComboBox<String> jComboBox4;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel4;

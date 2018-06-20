@@ -115,8 +115,8 @@ public class MainWindow extends JFrame {
 
         calendar = new AwtCalendar();
         calendar.beginInit();
-        calendar.setCurrentView(CalendarView.Timetable);
-        calendar.setTheme(ThemeType.Light);
+        calendar.setCurrentView(3);
+        calendar.setTheme(4);
         calendar.setCustomDraw(CustomDrawElements.TimetableItem);
         calendar.setGroupType(GroupType.FilterByContacts);
 

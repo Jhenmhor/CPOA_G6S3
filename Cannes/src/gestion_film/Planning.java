@@ -88,11 +88,11 @@ public class Planning {
             listHoraireBaz.add(formatHoraire.parse("22:00:00"));
 //</editor-fold>
 
-            this.listSalle.add(new Salle("Le Grand Théatre Lumière", listHoraireGTL));
-            this.listSalle.add(new Salle("La salle Debussy", listHoraireDeb));
-            this.listSalle.add(new Salle("La salle Buñuel", listHoraireBun));
-            this.listSalle.add(new Salle("La salle du Soixantième", listHoraireSoi));
-            this.listSalle.add(new Salle("La salle Bazin", listHoraireBaz));
+            this.listSalle.add(new Salle("Grand Théatre Lumière", listHoraireGTL));
+            this.listSalle.add(new Salle("Salle Debussy", listHoraireDeb));
+            this.listSalle.add(new Salle("Salle Buñuel", listHoraireBun));
+            this.listSalle.add(new Salle("Salle du Soixantième", listHoraireSoi));
+            this.listSalle.add(new Salle("Salle Bazin", listHoraireBaz));
 
             for (Film film : listFilm) {
 
