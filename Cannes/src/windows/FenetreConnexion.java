@@ -29,10 +29,11 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
     JLabel titre, logo, textFooter, labelmdp, labelid;
     JTextField mdp, id;
     JButton bconnexion /*, bnewcompte*/;
-    JPanel panel, panellogo, paneltire, panelsaisi, panelbouton, panelfooter;
+    JPanel panel, panellogo, paneltire, panelsaisi, panelbouton, panelfooter, panelvide;
     JScrollPane scroll;
     Object c;
     ArrayList<Personne> staff;
+    Color or=new Color(200, 164, 97);
 
     public FenetreConnexion() {
         //On recupere depuis la base de données les informations du staff
@@ -50,18 +51,25 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
 
         bconnexion = new JButton("Se connecter");
         bconnexion.setPreferredSize(new Dimension(120, 40));
-        bconnexion.setBackground(new Color(200, 164, 97));
+        bconnexion.setBackground(or);
         c = bconnexion.getColorModel();
         mdp = new JTextField("", 10);
         id = new JTextField("", 10);
-        logo = new JLabel(new ImageIcon("src/windows/img2.png"));
+        logo = new JLabel(new ImageIcon("src/windows/logo2.jpg"));
         titre = new JLabel("Acceder à votre session ");
         //changer la taille et la police du titre
         Font f = new Font("Serif", Font.PLAIN, 36);
         titre.setFont(f);
+        titre.setForeground(or);
         labelmdp = new JLabel("saisissez votre mot de passe ");
         labelid = new JLabel("saisissez votre identifiant ");
+        Font fontsaisi = new Font("Serif", Font.PLAIN, 20);
+        labelid.setFont(fontsaisi);
+        labelmdp.setFont(fontsaisi);
         textFooter = new JLabel("Created by GUEYE & DECROZANT & PERREAUT");
+        labelmdp.setForeground(or);
+        labelid.setForeground(or);
+        textFooter.setForeground(or);
 
         //Container c = getContentPane();
         //c.add(panel);
@@ -83,20 +91,40 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panelbouton = new JPanel(posLayoutCenter);
         panelfooter = new JPanel(posLayoutCenter);
         panellogo = new JPanel(posLayoutCenter);
+        panelvide= new JPanel(posLayoutCenter);
 
         // AJOUT DE BORDURE
         panel.setBorder(BorderFactory.createTitledBorder("connexion"));
         //paneltire.setBorder(BorderFactory.createTitledBorder("  "));
         panelsaisi.setBorder(BorderFactory.createTitledBorder("  "));
         panelbouton.setBorder(BorderFactory.createTitledBorder("  "));
-
+        //changer la couleur des bordures
+        //Haut //Gauche //Bas //Droite
+       /* panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, or));
+        panel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, or));
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, or));
+        panel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, or));
+        /*
+        panelsaisi.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, or));
+        panelsaisi.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, or));
+        panelsaisi.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, or));
+        panelsaisi.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, or));
+        
+        panelbouton.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, or));
+        panelbouton.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, or));
+        panelbouton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, or));
+        panelbouton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, or));
+        */
+        //panelsaisi.setBorder(BorderFactory.createLineBorder(or));
+        
         //changer la couleur des panels
-        panel.setBackground(Color.white);
-        panelsaisi.setBackground(Color.white);
-        panelbouton.setBackground(Color.white);
-        panellogo.setBackground(Color.white);
-        paneltire.setBackground(Color.white);
-        panelfooter.setBackground(Color.white);
+        panel.setBackground(Color.BLACK);
+        panelsaisi.setBackground(Color.black);
+        panelbouton.setBackground(Color.BLACK);
+        panellogo.setBackground(Color.BLACK);
+        paneltire.setBackground(Color.BLACK);
+        panelfooter.setBackground(Color.BLACK);
+        panelvide.setBackground(Color.BLACK);
 
         //on affecte à chaque panel les comppsants appropriés
         panellogo.add(logo);
@@ -110,11 +138,12 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panelfooter.add(textFooter);
 
         //on ajoute les panels dans le panel principal
-        panel.add(logo);
+        panel.add(panellogo);
         //panel.add(panellogo);
         panel.add(paneltire);
         panel.add(panelsaisi);
         panel.add(panelbouton);
+        panel.add(panelvide);
         panel.add(panelfooter);
 
         // GESTION  DES EVENEMENTS
@@ -144,7 +173,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
                 } else {
                     JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte. veuillez attendre la redirection!",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
-                    PlanningWindow taSession = new PlanningWindow();
+                   /* PlanningWindow taSession = new PlanningWindow();*/
                     FenetreConnexion.this.dispose();
                 }
             }
@@ -213,9 +242,9 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         FenetreConnexion connexion = new FenetreConnexion();
         //taille de la fenetre( ya deux 2 manieres de le faire) 
         //ça 
-        // connexion.setSize(500, 700);
+        connexion.setSize(600, 700);
         //ou ça
-        connexion.pack();
+        //connexion.pack();
         // Positionnement au centre de l'écran
         connexion.setLocationRelativeTo(null);
         //titre de la fenetre
