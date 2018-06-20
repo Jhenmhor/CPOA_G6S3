@@ -106,6 +106,7 @@ public class Planning {
 
     }
 
+<<<<<<< HEAD
     public ArrayList<Date> findHoraire(Film film, Date date) {
 
         DateFormat formatHoraire = Salle.getHoraireFormat();
@@ -165,6 +166,67 @@ public class Planning {
 
         return freeHoraire;
     }
+=======
+//    public ArrayList<Date> findHoraire(Film film, Date date) {
+//
+//        DateFormat formatHoraire = Salle.getHoraireFormat();
+//        DateFormat formatDate = Evenement.getDateFormat();
+//
+//        ArrayList<Date> freeHoraire = null;
+//        String dateS = date.getTime();
+//        
+//        try {
+//            freeHoraire.add(formatDate.parse(dateS + " 08:30:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 11:30:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 14:00:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 15:00:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 16:00:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 18:00:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 19:00:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 21:00:00"));
+//            freeHoraire.add(formatDate.parse(dateS + " 22:00:00"));
+//        } catch (Exception e) {
+//            System.out.println("Erreur Format Date");
+//        }
+//
+//        switch (film.getType()) {
+//
+//            case "LM": {
+//
+//                for (Evenement event : this.listEvenement) {
+//                    if (event.getDateDebut().getDate() == date.getDate()) {
+//                        Date lockedHoraire = event.getDateDebut().ge;
+//                        ListIterator<Date> iter = freeHoraire.listIterator();
+//                        while (iter.hasNext()) {
+//                            if ((e.getDateDebut().compareTo(event.getDateDebut()) == -1 && e.getDateFin().compareTo(event.getDateDebut()) == 1)
+//                                    || (e.getDateFin().compareTo(event.getDateFin()) == 1 && e.getDateDebut().compareTo(event.getDateFin()) == -1)) {
+//                                iter.remove();
+//                            }
+//                        }
+//                    }
+//                }
+//                break;
+//            }
+//
+//            case "HC": {
+//
+//                break;
+//            }
+//
+//            case "UCR": {
+//
+//                break;
+//            }
+//
+//            case "CM": {
+//
+//                break;
+//            }
+//        }
+//
+//        return freeHoraire;
+//    }
+>>>>>>> 24f4e22b8448e5b81d09de6cab14100f9f3e8226
 
     public boolean addEvenement(Evenement e) {
 
