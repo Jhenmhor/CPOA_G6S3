@@ -33,7 +33,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
     JScrollPane scroll;
     Object c;
     ArrayList<Personne> staff;
-    Color or=new Color(200, 164, 97);
+    Color or = new Color(200, 164, 97);
 
     public FenetreConnexion() {
         //On recupere depuis la base de données les informations du staff
@@ -91,7 +91,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panelbouton = new JPanel(posLayoutCenter);
         panelfooter = new JPanel(posLayoutCenter);
         panellogo = new JPanel(posLayoutCenter);
-        panelvide= new JPanel(posLayoutCenter);
+        panelvide = new JPanel(posLayoutCenter);
 
         // AJOUT DE BORDURE
         panel.setBorder(BorderFactory.createTitledBorder("connexion"));
@@ -100,7 +100,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panelbouton.setBorder(BorderFactory.createTitledBorder("  "));
         //changer la couleur des bordures
         //Haut //Gauche //Bas //Droite
-       /* panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, or));
+        /* panel.setBorder(BorderFactory.createMatteBorder(1, 0, 0, 0, or));
         panel.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, or));
         panel.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, or));
         panel.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, or));
@@ -114,9 +114,9 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         panelbouton.setBorder(BorderFactory.createMatteBorder(0, 1, 0, 0, or));
         panelbouton.setBorder(BorderFactory.createMatteBorder(0, 0, 1, 0, or));
         panelbouton.setBorder(BorderFactory.createMatteBorder(0, 0, 0, 1, or));
-        */
+         */
         //panelsaisi.setBorder(BorderFactory.createLineBorder(or));
-        
+
         //changer la couleur des panels
         panel.setBackground(Color.BLACK);
         panelsaisi.setBackground(Color.black);
@@ -171,9 +171,9 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
                     JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe incorrecte!",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte. veuillez attendre la redirection!",
+                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte.",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
-                   /* PlanningWindow taSession = new PlanningWindow();*/
+                    
                     FenetreConnexion.this.dispose();
                 }
             }
@@ -239,10 +239,13 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
             java.util.logging.Logger.getLogger(FenetreConnexion.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+
+        PlanningWindow taSession = new PlanningWindow();
+
         FenetreConnexion connexion = new FenetreConnexion();
         //taille de la fenetre( ya deux 2 manieres de le faire) 
         //ça 
-        connexion.setSize(600, 700);
+        connexion.setSize(600, 800);
         //ou ça
         //connexion.pack();
         // Positionnement au centre de l'écran
@@ -254,11 +257,12 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         //j'essaie de  changer le background mais ça n'a pas marché
         connexion.getContentPane().setBackground(Color.white);
         //connexion.getContentPane().setBackground(new Color (20,20,20));
-//202020 //20016497
+        //202020 //20016497
         //changer le logo
         connexion.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
         //teste
         System.out.println(connexion.getWidth() + " " + connexion.getHeight());
+
     }
 
 }
