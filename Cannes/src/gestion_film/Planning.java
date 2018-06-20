@@ -8,6 +8,8 @@ package gestion_film;
 import java.text.*;
 import java.util.*;
 import java.util.ArrayList;
+import java.time.*;
+
 
 /**
  *
@@ -135,8 +137,8 @@ public class Planning {
                         Date lockedHoraire = event.getDateDebut().ge;
                         ListIterator<Date> iter = freeHoraire.listIterator();
                         while (iter.hasNext()) {
-                            if ((e.getDateDebut().compareTo(event.getDateDebut()) == -1 && e.getDateFin().compareTo(event.getDateDebut()) == 1)
-                                    || (e.getDateFin().compareTo(event.getDateFin()) == 1 && e.getDateDebut().compareTo(event.getDateFin()) == -1)) {
+                            if ((event.getDateDebut().compareTo(event.getDateDebut()) == -1 && event.getDateFin().compareTo(event.getDateDebut()) == 1)
+                                    || (event.getDateFin().compareTo(event.getDateFin()) == 1 && event.getDateDebut().compareTo(event.getDateFin()) == -1)) {
                                 iter.remove();
                             }
                         }
