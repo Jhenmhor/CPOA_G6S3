@@ -55,6 +55,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         c = bconnexion.getColorModel();
         mdp = new JTextField("", 10);
         id = new JTextField("", 10);
+        
         logo = new JLabel(new ImageIcon("src/windows/logo2.jpg"));
         titre = new JLabel("Acceder à votre session ");
         //changer la taille et la police du titre
@@ -67,9 +68,9 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         labelid.setFont(fontsaisi);
         labelmdp.setFont(fontsaisi);
         textFooter = new JLabel("Created by GUEYE & DECROZANT & PERREAUT");
-        labelmdp.setForeground(or);
-        labelid.setForeground(or);
-        textFooter.setForeground(or);
+        labelmdp.setForeground(Color.white);
+        labelid.setForeground(Color.white);
+        textFooter.setForeground(Color.white);
 
         //Container c = getContentPane();
         //c.add(panel);
@@ -242,7 +243,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         FenetreConnexion connexion = new FenetreConnexion();
         //taille de la fenetre( ya deux 2 manieres de le faire) 
         //ça 
-        connexion.setSize(600, 700);
+        connexion.setSize(600, 800);
         //ou ça
         //connexion.pack();
         // Positionnement au centre de l'écran
