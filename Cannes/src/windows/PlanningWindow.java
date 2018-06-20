@@ -140,11 +140,11 @@ public class PlanningWindow extends javax.swing.JFrame {
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
+        java.awt.GridBagConstraints gridBagConstraints;
 
         jInternalFrame1 = new javax.swing.JInternalFrame();
         title = new javax.swing.JPanel();
-        titleLabel = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
         quitPanel = new javax.swing.JPanel();
         saveButton = new javax.swing.JButton();
         cancelButton = new javax.swing.JButton();
@@ -198,33 +198,18 @@ public class PlanningWindow extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setBackground(new java.awt.Color(20, 20, 20));
 
-        title.setBackground(new java.awt.Color(20, 20, 20));
+        title.setBackground(new java.awt.Color(0, 0, 0));
         title.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
         title.setToolTipText("");
+        title.setLayout(new java.awt.GridBagLayout());
 
-        titleLabel.setIcon(new javax.swing.ImageIcon(getClass().getResource("/windows/logo2.jpg"))); // NOI18N
-
-        jLabel4.setForeground(new java.awt.Color(200, 164, 97));
-        jLabel4.setText("Cannes");
-
-        javax.swing.GroupLayout titleLayout = new javax.swing.GroupLayout(title);
-        title.setLayout(titleLayout);
-        titleLayout.setHorizontalGroup(
-            titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(titleLayout.createSequentialGroup()
-                .addComponent(titleLabel)
-                .addGap(217, 217, 217)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 326, Short.MAX_VALUE))
-        );
-        titleLayout.setVerticalGroup(
-            titleLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(titleLabel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-            .addGroup(titleLayout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, 39, Short.MAX_VALUE)
-                .addContainerGap())
-        );
+        jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/windows/logo2.jpg"))); // NOI18N
+        gridBagConstraints = new java.awt.GridBagConstraints();
+        gridBagConstraints.gridx = 0;
+        gridBagConstraints.gridy = 0;
+        gridBagConstraints.anchor = java.awt.GridBagConstraints.NORTHWEST;
+        gridBagConstraints.insets = new java.awt.Insets(1, 160, 1, 138);
+        title.add(jLabel2, gridBagConstraints);
 
         quitPanel.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(200, 164, 97)));
 
@@ -333,7 +318,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         panelCalendar.setLayout(panelCalendarLayout);
         panelCalendarLayout.setHorizontalGroup(
             panelCalendarLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(panelJour, javax.swing.GroupLayout.DEFAULT_SIZE, 631, Short.MAX_VALUE)
+            .addComponent(panelJour, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addComponent(panelSchedule, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
         panelCalendarLayout.setVerticalGroup(
@@ -457,7 +442,7 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addComponent(soiCheck2)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(bazCheck2)
-                .addContainerGap(188, Short.MAX_VALUE))
+                .addContainerGap(180, Short.MAX_VALUE))
         );
 
         jTabbedOption2.addTab("Affichage", jTabbedAffichage2);
@@ -559,7 +544,7 @@ public class PlanningWindow extends javax.swing.JFrame {
             jTabbedEvenementLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jTabbedEvenementLayout.createSequentialGroup()
                 .addComponent(createPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 187, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 179, Short.MAX_VALUE)
                 .addComponent(modifButton)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(delButton)
@@ -594,7 +579,7 @@ public class PlanningWindow extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(panelCalendar, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(jTabbedOption2, javax.swing.GroupLayout.DEFAULT_SIZE, 477, Short.MAX_VALUE))
+                    .addComponent(jTabbedOption2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(quitPanel, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -692,7 +677,7 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JCheckBox hcCheck2;
     private javax.swing.JInternalFrame jInternalFrame1;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jTabbedAffichage2;
@@ -710,7 +695,6 @@ public class PlanningWindow extends javax.swing.JFrame {
     private javax.swing.JButton saveButton;
     private javax.swing.JCheckBox soiCheck2;
     private javax.swing.JPanel title;
-    private javax.swing.JLabel titleLabel;
     private javax.swing.JCheckBox ucrCheck2;
     // End of variables declaration//GEN-END:variables
 //</editor-fold>
