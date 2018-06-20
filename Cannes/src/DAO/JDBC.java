@@ -3,8 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestion_film;
+package DAO;
 
+import classes.Personne;
+import classes.Film;
 import java.sql.DriverManager;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -13,7 +15,6 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.time.*;
 
-import gestion_VIP.*;
 
 public class JDBC {
 

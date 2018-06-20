@@ -3,9 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package gestion_film;
+package classes;
 
-import gestion_VIP.Personne;
 
 import java.text.*;
 import java.util.*;

@@ -5,6 +5,9 @@
  */
 package gestion_film;
 
+import classes.Salle;
+import classes.Evenement;
+import classes.Film;
 import java.text.*;
 import java.util.*;
 import java.util.ArrayList;

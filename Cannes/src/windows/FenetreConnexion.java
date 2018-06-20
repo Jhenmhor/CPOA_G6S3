@@ -5,8 +5,8 @@
  */
 package windows;
 
-import gestion_VIP.Personne;
-import gestion_film.JDBC;
+import classes.Personne;
+import DAO.JDBC;
 import java.awt.*;
 import java.awt.event.*;
 import java.io.FileNotFoundException;
@@ -169,10 +169,10 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
                 reponse = verifybd(idint, mdp.getText());
                 System.out.println(mdp.getText() + " " + Integer.toString(idint) + "test");
                 if (reponse == false) {
-                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe incorrecte!",
+                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe incorrect!",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
                 } else {
-                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte.",
+                    JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correct.",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
 
                     FenetreConnexion.this.setVisible(false);
