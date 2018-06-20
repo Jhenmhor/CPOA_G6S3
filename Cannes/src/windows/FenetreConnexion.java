@@ -55,6 +55,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         c = bconnexion.getColorModel();
         mdp = new JTextField("", 10);
         id = new JTextField("", 10);
+        
         logo = new JLabel(new ImageIcon("src/windows/logo2.jpg"));
         titre = new JLabel("Acceder à votre session ");
         //changer la taille et la police du titre
@@ -173,8 +174,15 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
                 } else {
                     JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte.",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
+<<<<<<< HEAD
                     
+=======
+>>>>>>> ad59cd94f38c144d0ea32c38b4d54ebc3942382f
                     FenetreConnexion.this.dispose();
+                   PlanningWindow taSession = new PlanningWindow();
+                  /* taSession.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
+                   taSession.setTitle("FVC: Gestion des plannings");*/
+                   
                 }
             }
 
@@ -251,7 +259,7 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
         // Positionnement au centre de l'écran
         connexion.setLocationRelativeTo(null);
         //titre de la fenetre
-        connexion.setTitle("FVC: Gestion des planning");
+        connexion.setTitle("FVC: Gestion des plannings");
         //affichage
         connexion.setVisible(true);
         //j'essaie de  changer le background mais ça n'a pas marché

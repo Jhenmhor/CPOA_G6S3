@@ -672,8 +672,8 @@ public class PlanningWindow extends javax.swing.JFrame {
                 new PlanningWindow().setVisible(true);
             }
         });
+         
     }
-
     //<editor-fold defaultstate="collapsed" desc=" palette variable declaration">
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JCheckBox bazCheck2;
