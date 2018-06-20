@@ -174,12 +174,10 @@ public class FenetreConnexion extends JFrame /*implements ItemListener*/ {
                 } else {
                     JOptionPane.showMessageDialog(FenetreConnexion.this, "identifiant/mot de passe correcte.",
                             "message information", JOptionPane.INFORMATION_MESSAGE);
-<<<<<<< HEAD
-                    
-=======
->>>>>>> ad59cd94f38c144d0ea32c38b4d54ebc3942382f
-                    FenetreConnexion.this.dispose();
-                   PlanningWindow taSession = new PlanningWindow();
+
+                    FenetreConnexion.this.setVisible(false);
+                    PlanningWindow taSession = new PlanningWindow();
+                    taSession.setVisible(true);
                   /* taSession.setIconImage(new ImageIcon("src/windows/logo.jpg").getImage());
                    taSession.setTitle("FVC: Gestion des plannings");*/
                    
