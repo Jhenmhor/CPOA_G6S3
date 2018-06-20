@@ -42,7 +42,7 @@ import java.text.SimpleDateFormat;
 
 import gestion_film.Film;
 import gestion_film.JDBC;
-import gestion_film.Planning;
+//import gestion_film.Planning;
 
 /**
  *
@@ -51,7 +51,7 @@ import gestion_film.Planning;
 public class PlanningWindow extends javax.swing.JFrame {
 
     private ArrayList<Film> listFilm;
-    private Planning baseplanning;
+    //private Planning baseplanning;
 
     /**
      * Creates new form PlanningWindow
@@ -124,7 +124,7 @@ public class PlanningWindow extends javax.swing.JFrame {
         //</editor-fold>
 
         comboBoxDate.setModel(new javax.swing.DefaultComboBoxModel<>(listDate));
-        
+
     }
 
     private DateTime getStartingDate() {
@@ -603,6 +603,25 @@ public class PlanningWindow extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_quitButtonActionPerformed
 
+    private void ucrCheckActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void bunCheckActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void debCheckActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void gtlCheckActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
+
+    private void comboBoxDateActionPerformed(java.awt.event.ActionEvent evt) {
+
+    }
     private void createButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_createButtonActionPerformed
 //        // TODO add your handling code here:
 //        DateTimeFormatter formatter = DateTimeFormat.forPattern("dd/MM/yyyy HH:mm:ss");
